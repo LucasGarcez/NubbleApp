@@ -6,10 +6,10 @@ import {Text} from './src/components/Text/Text';
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <Text preset="paragraphMedium" bold>
+      <Text preset="headingLarge" italic>
         Coffstack
       </Text>
-      <Text preset="headingLarge">Coffstack</Text>
+      <Text preset="headingMedium">Coffstack</Text>
       <Text preset="paragraphMedium">Coffstack</Text>
     </SafeAreaView>
   );
