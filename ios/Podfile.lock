@@ -413,6 +413,8 @@ PODS:
     - React-jsi (= 0.71.8)
     - React-logger (= 0.71.8)
     - React-perflogger (= 0.71.8)
+  - RNSVG (13.9.0):
+    - React-Core
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -477,6 +479,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -564,6 +567,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -614,10 +619,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 43ffd976a25f6057a7cf95ea3648ba4e00287f89
   React-runtimeexecutor: 7c51ae9d4b3e9608a2366e39ccaa606aa551b9ed
   ReactCommon: 85c98ab0a509e70bf5ee5d9715cf68dbf495b84c
+  RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: b03e55c075f548a48e20f6ae8f672faf1cb69411
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3
