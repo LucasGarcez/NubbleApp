@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {Button} from '../../../components/Button/Button';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -15,21 +15,12 @@ type LoginFormType = {
 };
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 export function LoginScreen({navigation}: ScreenProps) {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
-  // const [emailErrorMessage, setEmailErrorMessage] = useState('');
-
-  // useEffect(() => {
-  //   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-  //   setEmailErrorMessage(isValidEmail ? '' : 'E-mail inválido');
-  // }, [email]);
-
   const {control, formState, handleSubmit} = useForm<LoginFormType>({
     defaultValues: {
       email: '',
       password: '',
     },
+    mode: 'onChange',
   });
 
   function submitForm({email, password}: LoginFormType) {
@@ -74,13 +65,27 @@ export function LoginScreen({navigation}: ScreenProps) {
         )}
       />
 
-      {/* <PasswordInput
-        value={password}
-        onChangeText={setPassword}
-        label="Senha"
-        placeholder="Digite sua senha"
-        boxProps={{mb: 's10'}}
-      /> */}
+      <Controller
+        control={control}
+        name="password"
+        rules={{
+          required: 'Senha obrigatória',
+          minLength: {
+            value: 8,
+            message: 'Senha deve ter no mínimo 8 caracteres',
+          },
+        }}
+        render={({field, fieldState}) => (
+          <PasswordInput
+            errorMessage={fieldState.error?.message}
+            value={field.value}
+            onChangeText={field.onChange}
+            label="Senha"
+            placeholder="Digite sua senha"
+            boxProps={{mb: 's20'}}
+          />
+        )}
+      />
 
       <Text
         onPress={navigateToForgotPasswordScreen}
@@ -91,7 +96,6 @@ export function LoginScreen({navigation}: ScreenProps) {
       </Text>
 
       <Button
-        // disabled={!!emailErrorMessage || password.length < 6}
         disabled={!formState.isValid}
         onPress={handleSubmit(submitForm)}
         marginTop="s48"
