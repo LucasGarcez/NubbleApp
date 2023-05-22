@@ -24,11 +24,6 @@ export function Screen({
 
   const navigation = useNavigation();
 
-  console.log({
-    device: Platform.OS,
-    bottom,
-  });
-
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
   return (
     <KeyboardAvoidingView
