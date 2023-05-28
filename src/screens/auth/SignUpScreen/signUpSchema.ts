@@ -15,7 +15,7 @@ export const signUpSchema = z.object({
         .join(' ');
     }),
   email: z.string().email('email inválido'),
-  password: z.string().min(8, 'Senha deve ter no mínimo 8 caracteres'),
+  password: z.string().min(8, 'senha deve ter no mínimo 8 caracteres'),
 });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
