@@ -1,6 +1,9 @@
 import React from 'react';
-import {useForm} from 'react-hook-form';
+import {Alert} from 'react-native';
+
+import {zodResolver} from '@hookform/resolvers/zod';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useForm} from 'react-hook-form';
 
 import {
   Text,
@@ -10,8 +13,7 @@ import {
   FormPasswordInput,
 } from '@components';
 import {RootStackParamList} from '@routes';
-import {Alert} from 'react-native';
-import {zodResolver} from '@hookform/resolvers/zod';
+
 import {LoginSchema, loginSchema} from './loginSchema';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
@@ -26,7 +28,7 @@ export function LoginScreen({navigation}: ScreenProps) {
   });
 
   function submitForm({email, password}: LoginSchema) {
-    Alert.alert(`Email: ${email} ${`\n`} Senha: ${password}`);
+    Alert.alert(`Email: ${email} ${'\n'} Senha: ${password}`);
   }
 
   function navigateToSignUpScreen() {
