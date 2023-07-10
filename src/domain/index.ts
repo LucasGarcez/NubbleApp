@@ -1,3 +1,3 @@
 export * from './Post/postTypes';
 export * from './Post/postService';
-export * from './Post/features/usePostList';
+export * from './Post/features/postList/usePostList';
