@@ -9,8 +9,7 @@
       "request": "attach",
       "type": "reactnativedirect",
       "cwd": "${workspaceFolder}",
-      "address": "localhost",
-      "port": 8081
+      "trace": "verbose"
     }
   ]
 }
