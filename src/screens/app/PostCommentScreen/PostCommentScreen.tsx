@@ -4,15 +4,18 @@ import {FlatList, ListRenderItemInfo} from 'react-native';
 import {PostComment, usePostCommentList} from '@domain';
 
 import {Screen} from '@components';
+import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
 
-import {PostCommentItem} from './components/PostCommentItem';
+import {PostCommentBottom, PostCommentItem} from './components';
 
 export function PostCommentScreen({
   route,
 }: AppScreenProps<'PostCommentScreen'>) {
   const postId = route.params.postId;
-  const {list} = usePostCommentList(postId);
+  const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
+
+  const {bottom} = useAppSafeArea();
 
   function renderItem({item}: ListRenderItemInfo<PostComment>) {
     return <PostCommentItem postComment={item} />;
@@ -20,7 +23,18 @@ export function PostCommentScreen({
 
   return (
     <Screen title="Comentários" canGoBack>
-      <FlatList data={list} renderItem={renderItem} />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={list}
+        renderItem={renderItem}
+        contentContainerStyle={{paddingBottom: bottom}}
+        ListFooterComponent={
+          <PostCommentBottom
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        }
+      />
     </Screen>
   );
 }
