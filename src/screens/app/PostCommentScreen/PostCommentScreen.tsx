@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {usePostCommentList} from 'src/domain/PostComment/useCases/usePostCommentList';
+import {usePostCommentList} from '@domain';
 
 import {Box, Screen, Text} from '@components';
 import {AppScreenProps} from '@routes';
