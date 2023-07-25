@@ -9,3 +9,4 @@ export * from './Screen/Screen';
 export * from './Text/Text';
 export * from './TextInput/TextInput';
 export * from './PostItem/PostItem';
+export * from './ProfileAvatar/ProfileAvatar';
