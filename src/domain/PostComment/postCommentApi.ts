@@ -15,6 +15,18 @@ async function getList(
   return response.data;
 }
 
+async function create(
+  post_id: number,
+  message: string,
+): Promise<PostCommentAPI> {
+  const response = await api.post<PostCommentAPI>('user/post_comment', {
+    post_id,
+    message,
+  });
+  return response.data;
+}
+
 export const postCommentApi = {
   getList,
+  create,
 };
