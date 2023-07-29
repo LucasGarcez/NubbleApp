@@ -4,6 +4,7 @@ function formatRelative(dateISO: string): string {
   const date = parseISO(dateISO);
   const now = new Date();
 
+  // TODO: handle future dates
   const diffInSeconds = differenceInSeconds(now, date);
 
   if (diffInSeconds < 60) {
