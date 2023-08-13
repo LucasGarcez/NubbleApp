@@ -1,7 +1,10 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
-  plugins: ['import'],
+  extends: [
+    '@react-native-community',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+  ],
+  plugins: ['import', '@tanstack/query'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
