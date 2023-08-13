@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {userService} from '../userService';
 
 export function useUserGetById(id: number) {
-  const {data, isLoading, isError} = useQuery({
+  const {data, isLoading, isError, refetch, isFetching} = useQuery({
     queryKey: [QueryKeys.UserGetById, id],
     queryFn: () => userService.getById(id),
     staleTime: 1000 * 30, // 10 seconds
@@ -14,6 +14,8 @@ export function useUserGetById(id: number) {
   return {
     user: data,
     isLoading,
+    isFetching,
     isError,
+    refetch,
   };
 }
