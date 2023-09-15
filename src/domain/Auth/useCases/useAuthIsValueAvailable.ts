@@ -24,7 +24,8 @@ export function useAuthIsUsernameAvailable({username, enabled}: Param) {
   const isDebouncing = debouncedUsername !== username;
 
   return {
-    isAvailable: !!data,
+    // isAvailable: !!data,
+    isUnavailable: data === false,
     isFetching: isFetching || isDebouncing,
   };
 }
