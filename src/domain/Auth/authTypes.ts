@@ -5,6 +5,11 @@ export interface AuthCredentials {
   user: User;
 }
 
+export interface FieldIsAvailableAPI {
+  message: string;
+  isAvailable: boolean;
+}
+
 export interface AuthCredentialsAPI {
   auth: {
     type: string; //'bearer';
