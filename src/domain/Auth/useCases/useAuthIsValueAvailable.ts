@@ -50,6 +50,7 @@ export function useAuthIsUsernameAvailable({
     queryKey: QueryKeys.IsUsernameAvailable,
   });
 }
+
 export function useAuthIsEmailAvailable({
   email,
   enabled,
