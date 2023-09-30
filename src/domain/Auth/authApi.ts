@@ -5,6 +5,7 @@ import {UserAPI} from '../User';
 import {
   AuthCredentialsAPI,
   FieldIsAvailableAPI,
+  ForgotPasswordParam,
   SignUpDataAPI,
 } from './authTypes';
 
@@ -49,10 +50,19 @@ async function isEmailAvailable(params: {
   return response.data;
 }
 
+async function forgotPassword(
+  params: ForgotPasswordParam,
+): Promise<{message: string}> {
+  const response = await api.post<{message: string}>('forgot-password', params);
+
+  return response.data;
+}
+
 export const authApi = {
   signIn,
   signOut,
   signUp,
   isUserNameAvailable,
   isEmailAvailable,
+  forgotPassword,
 };
