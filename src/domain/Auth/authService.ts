@@ -41,10 +41,28 @@ function updateToken(token: string) {
 function removeToken() {
   api.defaults.headers.common.Authorization = null;
 }
-
 async function requestNewPassword(email: string): Promise<string> {
   const {message} = await authApi.forgotPassword({email});
   return message;
+}
+
+//TODO: test edge case:
+// - no refresh token
+// - refresh token invalid (after two minutes)
+async function tryToRefreshToken(
+  refreshToken?: string,
+): Promise<AuthCredentials> {
+  try {
+    if (!refreshToken) {
+      throw new Error('no refresh token');
+    }
+    const acAPI = await authApi.refreshToken(refreshToken);
+    return authAdapter.toAuthCredentials(acAPI);
+  } catch (error) {
+    // TODO: handle error better
+
+    throw new Error('failed to try to refresh token');
+  }
 }
 
 export const authService = {
@@ -56,4 +74,5 @@ export const authService = {
   isUserNameAvailable,
   isEmailAvailable,
   requestNewPassword,
+  tryToRefreshToken,
 };
