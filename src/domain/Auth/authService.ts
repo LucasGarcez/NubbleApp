@@ -50,19 +50,10 @@ async function requestNewPassword(email: string): Promise<string> {
 // - no refresh token
 // - refresh token invalid (after two minutes)
 async function tryToRefreshToken(
-  refreshToken?: string,
+  refreshToken: string,
 ): Promise<AuthCredentials> {
-  try {
-    if (!refreshToken) {
-      throw new Error('no refresh token');
-    }
-    const acAPI = await authApi.refreshToken(refreshToken);
-    return authAdapter.toAuthCredentials(acAPI);
-  } catch (error) {
-    // TODO: handle error better
-
-    throw new Error('failed to try to refresh token');
-  }
+  const acAPI = await authApi.refreshToken(refreshToken);
+  return authAdapter.toAuthCredentials(acAPI);
 }
 
 export const authService = {
