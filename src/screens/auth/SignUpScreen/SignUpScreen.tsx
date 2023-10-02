@@ -1,9 +1,11 @@
 import React from 'react';
 
+import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -11,34 +13,51 @@ import {
   Text,
 } from '@components';
 import {useResetNavigationSuccess} from '@hooks';
-import {AuthScreenProps} from '@routes';
+import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {signUpSchema, SignUpSchema} from './signUpSchema';
+import {useAsyncValidation} from './useAsyncValidation';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  title: 'Sua conta foi criada com sucesso!',
+  description: 'Agora é só fazer login na nossa plataforma',
+  icon: {
+    name: 'checkRound',
+    color: 'success',
+  },
+};
+
+const defaultValues: SignUpSchema = {
+  username: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+};
+
+export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   const {reset} = useResetNavigationSuccess();
-  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      username: '',
-      fullName: '',
-      email: '',
-      password: '',
+  const {signUp, isLoading} = useAuthSignUp({
+    onSuccess: () => {
+      reset(resetParam);
     },
-    mode: 'onChange',
   });
-  function submitForm(formValues: SignUpSchema) {
-    console.log(formValues);
-    reset({
-      title: 'Sua conta foi criada com sucesso!',
-      description: 'Agora é só fazer login na nossa plataforma',
-      icon: {
-        name: 'checkRound',
-        color: 'success',
-      },
+
+  const {control, formState, handleSubmit, watch, getFieldState} =
+    useForm<SignUpSchema>({
+      resolver: zodResolver(signUpSchema),
+      defaultValues,
+      mode: 'onChange',
     });
+  function submitForm(formValues: SignUpSchema) {
+    signUp(formValues);
   }
+
+  const {usernameValidation, emailValidation} = useAsyncValidation({
+    watch,
+    getFieldState,
+  });
+
   return (
     <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
@@ -50,15 +69,29 @@ export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
         name="username"
         label="Seu username"
         placeholder="@"
+        errorMessage={usernameValidation.errorMessage}
         boxProps={{mb: 's20'}}
+        RightComponent={
+          usernameValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormTextInput
         control={control}
-        name="fullName"
+        name="firstName"
         autoCapitalize="words"
-        label="Nome Completo"
-        placeholder="Digite seu nome completo"
+        label="Nome"
+        placeholder="Digite seu nome"
+        boxProps={{mb: 's20'}}
+      />
+      <FormTextInput
+        control={control}
+        name="lastName"
+        autoCapitalize="words"
+        label="Sobrenome"
+        placeholder="Digite seu sobrenome"
         boxProps={{mb: 's20'}}
       />
       <FormTextInput
@@ -67,6 +100,12 @@ export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
+        errorMessage={emailValidation.errorMessage}
+        RightComponent={
+          emailValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormPasswordInput
@@ -78,7 +117,12 @@ export function SignUpScreen({navigation}: AuthScreenProps<'SignUpScreen'>) {
       />
 
       <Button
-        disabled={!formState.isValid}
+        loading={isLoading}
+        disabled={
+          !formState.isValid ||
+          usernameValidation.notReady ||
+          emailValidation.notReady
+        }
         onPress={handleSubmit(submitForm)}
         title="Criar uma conta"
       />
