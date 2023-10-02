@@ -1,4 +1,5 @@
 import {api} from '@api';
+import {AxiosRequestConfig} from 'axios';
 
 import {UserAPI} from '../User';
 
@@ -8,6 +9,8 @@ import {
   ForgotPasswordParam,
   SignUpDataAPI,
 } from './authTypes';
+
+const REFRESH_URL = 'auth/refresh-token';
 
 async function signIn(
   email: string,
@@ -65,8 +68,21 @@ async function forgotPassword(
 }
 
 async function refreshToken(token: string): Promise<AuthCredentialsAPI> {
-  const response = await api.post('auth/refresh-token', {refreshToken: token});
+  const response = await api.post(REFRESH_URL, {refreshToken: token});
   return response.data;
+}
+
+//
+/**
+ *
+ * @param axiosConfig [AxiosRequestConfig](https://axios-http.com/docs/req_config) - The Axios request configuration
+ * @returns `true` if is a refresh token request. Currently, check the config URL property
+ */
+function isRefreshTokenRequest(
+  axiosConfig: Partial<AxiosRequestConfig>,
+): boolean {
+  const url = axiosConfig?.url;
+  return REFRESH_URL === url;
 }
 
 export const authApi = {
@@ -77,4 +93,5 @@ export const authApi = {
   isEmailAvailable,
   forgotPassword,
   refreshToken,
+  isRefreshTokenRequest,
 };

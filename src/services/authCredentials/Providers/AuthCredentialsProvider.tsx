@@ -1,12 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {createContext, useState} from 'react';
 
+import {registerUnauthorizedInterceptor} from '@api';
 import {AuthCredentials, authService} from '@domain';
 
 import {authCredentialsStorage} from '../authCredentialsStorage';
 import {AuthCredentialsService} from '../authCredentialsTypes';
-
-import {useUnauthorizedInterceptor} from './useUnauthorizedInterceptor';
 
 export const AuthCredentialsContext = createContext<AuthCredentialsService>({
   authCredentials: null,
@@ -23,11 +22,30 @@ export function AuthCredentialsProvider({
 
   const [isLoading, setIsLoading] = useState(true);
 
-  useUnauthorizedInterceptor({
-    authCredentials,
-    removeCredentials,
-    saveCredentials,
-  });
+  const saveCredentials = useCallback(
+    async (ac: AuthCredentials): Promise<void> => {
+      authService.updateToken(ac.token);
+      authCredentialsStorage.set(ac);
+      setAuthCredentials(ac);
+    },
+    [],
+  );
+
+  const removeCredentials = useCallback(async (): Promise<void> => {
+    authService.removeToken();
+    authCredentialsStorage.remove();
+    setAuthCredentials(null);
+  }, []);
+
+  useEffect(() => {
+    const removeInterceptor = registerUnauthorizedInterceptor({
+      authCredentials,
+      saveCredentials,
+      removeCredentials,
+    });
+
+    return () => removeInterceptor();
+  }, [authCredentials, removeCredentials, saveCredentials]);
 
   useEffect(() => {
     startAuthCredentials();
@@ -46,18 +64,6 @@ export function AuthCredentialsProvider({
     } finally {
       setIsLoading(false);
     }
-  }
-
-  async function saveCredentials(ac: AuthCredentials): Promise<void> {
-    authService.updateToken(ac.token);
-    authCredentialsStorage.set(ac);
-    setAuthCredentials(ac);
-  }
-
-  async function removeCredentials(): Promise<void> {
-    authService.removeToken();
-    authCredentialsStorage.remove();
-    setAuthCredentials(null);
   }
 
   return (
