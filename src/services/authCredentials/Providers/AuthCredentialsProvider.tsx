@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {createContext, useState} from 'react';
 
+import {registerInterceptor} from '@api';
 import {AuthCredentials, authService} from '@domain';
 
 import {authCredentialsStorage} from '../authCredentialsStorage';
@@ -24,6 +25,17 @@ export function AuthCredentialsProvider({
   useEffect(() => {
     startAuthCredentials();
   }, []);
+
+  useEffect(() => {
+    const interceptor = registerInterceptor({
+      authCredentials,
+      removeCredentials,
+      saveCredentials,
+    });
+
+    // remove listener when component unmount
+    return interceptor;
+  }, [authCredentials]);
 
   async function startAuthCredentials() {
     try {
