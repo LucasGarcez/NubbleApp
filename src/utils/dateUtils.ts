@@ -2,7 +2,7 @@ import {parseISO, differenceInSeconds, format} from 'date-fns';
 
 function formatRelative(dateISO: string): string {
   const date = parseISO(dateISO);
-  const now = new Date();
+  const now = Date.now();
 
   // TODO: handle future dates
   const diffInSeconds = differenceInSeconds(now, date);
