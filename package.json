@@ -65,6 +65,9 @@
       "node_modules",
       "./src/test"
     ],
+    "modulePathIgnorePatterns": [
+      ".*/mockedData/.*"
+    ],
     "collectCoverageFrom": [
       "src/{components,utils}/**/*.{js,jsx,ts,tsx}"
     ],
