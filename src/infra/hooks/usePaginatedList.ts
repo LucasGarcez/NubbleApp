@@ -21,7 +21,7 @@ export function usePaginatedList<Data>(
     queryKey,
     queryFn: ({pageParam = 1}) => getList(pageParam),
     getNextPageParam: ({meta}) =>
-      meta.hasNextPage ? meta.currentPage + 1 : null,
+      meta.hasNextPage ? meta.currentPage + 1 : undefined,
   });
 
   useEffect(() => {
