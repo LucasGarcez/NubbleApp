@@ -1,7 +1,8 @@
-import {useCallback, useEffect, useRef} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Animated} from 'react-native';
 
-import {useToast, useToastService} from '@services';
+import {ToastPosition, useToast, useToastService} from '@services';
 
 import {ToasContent} from './components/ToasContent';
 
@@ -46,9 +47,16 @@ export function Toast() {
     return null;
   }
 
+  const position: ToastPosition = toast?.position || 'top';
+
   return (
     <Animated.View
-      style={{position: 'absolute', alignSelf: 'center', opacity: fadeAnim}}>
+      style={{
+        position: 'absolute',
+        alignSelf: 'center',
+        opacity: fadeAnim,
+        [position]: 100,
+      }}>
       <ToasContent toast={toast} />
     </Animated.View>
   );
