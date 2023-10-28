@@ -5,9 +5,11 @@ import {authCredentialsStorage} from '@services';
 //@ts-ignore
 // import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 import {
+  act,
   fireEvent,
   renderScreen,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
 } from 'test-utils';
 
@@ -44,6 +46,8 @@ afterEach(() => {
 });
 // Clean up after the tests are finished.
 afterAll(() => server.close());
+
+jest.useFakeTimers();
 
 describe('integration:PostCommentScreen', () => {
   jest
@@ -131,14 +135,18 @@ describe('integration:PostCommentScreen', () => {
       }),
     );
 
-    // await waitFor(() =>
-    //   expect(screen.getByTestId('toast-component')).toBeTruthy(),
-    // );
+    // TODO: test => jest.advanceTimersByTime(1000);
 
-    // await waitForElementToBeRemoved(
-    //   () => screen.getByTestId('toast-component'),
-    //   {timeout: 6000},
-    // );
+    await waitFor(() =>
+      expect(screen.getByTestId('toast-component')).toBeTruthy(),
+    );
+
+    // NOTE: explicar como o runAllTimers funciona e a diferença para o advanceTimersByTime
+    // Por que o runAllTimers funciona mas o advanceTimersByTime não?
+    // TODO:
+    // - Olhar implementação do Animated.timing (Toast Component)
+    act(() => jest.runAllTimers());
+
+    expect(screen.queryByTestId('toast-component')).toBeNull();
   });
-  // }, 15000);
 });

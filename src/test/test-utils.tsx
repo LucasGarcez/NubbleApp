@@ -35,6 +35,7 @@ const queryClientConfig: QueryClientConfig = {
   },
 };
 
+import {Toast} from '@components';
 import {theme} from '@theme';
 
 export const wrapperAllProviders = () => {
@@ -74,6 +75,7 @@ export const wrapRenderScreen = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <NavigationContainer>{children}</NavigationContainer>
+          <Toast />
         </ThemeProvider>
       </QueryClientProvider>
     </AuthCredentialsProvider>
