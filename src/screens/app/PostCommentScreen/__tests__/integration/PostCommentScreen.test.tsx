@@ -2,8 +2,6 @@ import React from 'react';
 import {Alert} from 'react-native';
 
 import {authCredentialsStorage} from '@services';
-//@ts-ignore
-// import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 import {
   act,
   fireEvent,
@@ -17,26 +15,6 @@ import {PostCommentScreen} from '../../PostCommentScreen';
 
 import {mockedData} from './mockedServer/mocks';
 import {server, resetResponses} from './mockedServer/server';
-
-const MOCK_INITIAL_METRICS = {
-  frame: {
-    width: 320,
-    height: 640,
-    x: 0,
-    y: 0,
-  },
-  insets: {
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
-  },
-};
-jest.mock('react-native-safe-area-context', () => ({
-  useSafeAreaInsets: () => {
-    return MOCK_INITIAL_METRICS.insets;
-  },
-}));
 
 beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests, so they don't affect other tests.
@@ -100,6 +78,7 @@ describe('integration:PostCommentScreen', () => {
       />,
     );
 
+    // mocked alert
     let confirmFn: ((value?: string | undefined) => void) | undefined;
     const spyAlert = jest
       .spyOn(Alert, 'alert')
@@ -108,10 +87,6 @@ describe('integration:PostCommentScreen', () => {
           confirmFn = callbackOrButtons[0].onPress;
         }
       });
-
-    if (confirmFn) {
-      confirmFn();
-    }
 
     // wait for the comment list to load
     const commentList = await screen.findAllByTestId('post-comment-item');
