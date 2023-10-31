@@ -7,7 +7,7 @@ const config: Config = {
   moduleDirectories: ['node_modules', './src/test'],
   modulePathIgnorePatterns: ['.*/mockedData/.*'],
   collectCoverageFrom: [
-    'src/{components,utils,hooks,domain}/**/*.{js,jsx,ts,tsx}',
+    'src/{components,utils,hooks,domain,screens}/**/*.{js,jsx,ts,tsx}',
   ],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
   transformIgnorePatterns: [
