@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {server} from '@test';
-import {renderScreen, screen} from 'test-utils';
+import {fireEvent, renderScreen, screen} from 'test-utils';
 
 import {PostCommentScreen} from '../../PostCommentScreen';
 
@@ -30,5 +30,22 @@ describe('integration: PostCommentScreen', () => {
     const comment = await screen.findByText(/comentário aleatório/i);
 
     expect(comment).toBeTruthy();
+
+    // achar o campo de input
+    const inputText = screen.getByPlaceholderText(/Adicione um comentário/i);
+
+    // digitar a mensagem
+    fireEvent.changeText(inputText, 'novo comentário');
+
+    // clicar em enviar
+    fireEvent.press(screen.getByText(/enviar/i));
+
+    //espera: a lista atualizada com o novo comentário
+    const newComment = await screen.findByText(/novo comentário/i);
+    expect(newComment).toBeTruthy();
+
+    const comments = await screen.findAllByTestId('post-comment-id');
+
+    expect(comments.length).toBe(2);
   });
 });
