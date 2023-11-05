@@ -35,4 +35,18 @@ export const postCommentHandlers = [
       return HttpResponse.json(newPostCommentAPI, {status: 201});
     },
   ),
+  http.delete<{postCommentId: string}>(
+    `${FULL_URL}/:postCommentId`,
+    async ({params}) => {
+      inMemoryResponse.data = inMemoryResponse.data.filter(
+        item => item.id.toString() !== params.postCommentId,
+      );
+      inMemoryResponse.meta = {
+        ...inMemoryResponse.meta,
+        total: inMemoryResponse.meta.total - 1,
+      };
+
+      HttpResponse.json({message: 'removed'}, {status: 200});
+    },
+  ),
 ];
