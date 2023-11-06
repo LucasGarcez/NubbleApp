@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Animated} from 'react-native';
 
 import {useToast, useToastService} from '@services';
@@ -48,6 +48,7 @@ export function Toast() {
 
   return (
     <Animated.View
+      testID={'toast-message'}
       style={{position: 'absolute', alignSelf: 'center', opacity: fadeAnim}}>
       <ToasContent toast={toast} />
     </Animated.View>
