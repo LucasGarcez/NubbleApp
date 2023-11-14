@@ -11,6 +11,6 @@ export function useUserSearch(search: string) {
   return usePaginatedList<User>(
     [QueryKeys.UserList, debouncedSearch],
     () => userService.searchUser(search),
-    {enabled: debouncedSearch.length > 1},
+    {enabled: debouncedSearch.length > 1, staleTime: 30000},
   );
 }
