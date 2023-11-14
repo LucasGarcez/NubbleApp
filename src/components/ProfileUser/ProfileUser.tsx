@@ -1,25 +1,25 @@
 import React from 'react';
 import {Pressable} from 'react-native';
 
-import {Post} from '@domain';
+import {User} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
 import {Box, Text, ProfileAvatar} from '@components';
 
-type Props = Pick<Post, 'author'>;
-export function PostHeader({author}: Props) {
+type Props = Pick<User, 'id' | 'profileUrl' | 'username'>;
+export function ProfileUser({id, profileUrl, username}: Props) {
   const navigation = useNavigation();
 
   function navigateTpProfile() {
-    navigation.navigate('ProfileScreen', {userId: author.id});
+    navigation.navigate('ProfileScreen', {userId: id});
   }
 
   return (
     <Pressable onPress={navigateTpProfile}>
       <Box flexDirection="row" alignItems="center" mb="s16">
-        <ProfileAvatar imageURL={author.profileURL} />
+        <ProfileAvatar imageURL={profileUrl} />
         <Text ml="s12" semiBold preset="paragraphMedium">
-          {author.userName}
+          {username}
         </Text>
       </Box>
     </Pressable>
