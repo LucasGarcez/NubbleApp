@@ -8,7 +8,9 @@ import {User} from '../userTypes';
 export function useUserSearch(search: string) {
   const debouncedSearch = useDebounce(search);
 
-  return usePaginatedList<User>([QueryKeys.UserList, debouncedSearch], () =>
-    userService.searchUser(search),
+  return usePaginatedList<User>(
+    [QueryKeys.UserList, debouncedSearch],
+    () => userService.searchUser(search),
+    {enabled: debouncedSearch.length > 1},
   );
 }
