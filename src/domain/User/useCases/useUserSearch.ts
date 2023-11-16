@@ -1,16 +1,18 @@
 import {QueryKeys, usePaginatedList} from '@infra';
 
-import {useDebounce} from '@hooks';
-
 import {userService} from '../userService';
 import {User} from '../userTypes';
 
 export function useUserSearch(search: string) {
-  const debouncedSearch = useDebounce(search);
-
-  return usePaginatedList<User>(
-    [QueryKeys.UserList, debouncedSearch],
+  const {list, isLoading, isError} = usePaginatedList<User>(
+    [QueryKeys.UserList, search],
     () => userService.searchUser(search),
-    {enabled: debouncedSearch.length > 1, staleTime: 30000},
+    {enabled: search.length > 1, staleTime: 30000},
   );
+
+  return {
+    list,
+    isLoading,
+    isError,
+  };
 }
