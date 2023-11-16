@@ -4,7 +4,7 @@ import {ListRenderItemInfo, FlatList} from 'react-native';
 import {User} from '@domain';
 import {useSearchHistoryService, useSearchHistoryUserList} from '@services';
 
-import {Box, Icon, ProfileUser} from '@components';
+import {Box, Icon, ProfileUser, Text} from '@components';
 
 export function SearchHistoryList() {
   const userList = useSearchHistoryUserList();
@@ -29,6 +29,11 @@ export function SearchHistoryList() {
 
   return (
     <FlatList
+      ListHeaderComponent={
+        <Text mb="s16" preset="headingMedium">
+          Buscas recentes
+        </Text>
+      }
       data={userList}
       renderItem={renderItem}
       keyExtractor={item => item.id.toString()}

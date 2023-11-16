@@ -18,6 +18,7 @@ export function PostItem({post}: Props) {
         id={post.author.id}
         profileUrl={post.author.profileURL}
         username={post.author.userName}
+        mb="s16"
       />
       <PostImage imageURL={post.imageURL} />
       <PostActions
