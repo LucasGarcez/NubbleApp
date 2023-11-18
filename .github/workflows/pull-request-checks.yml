@@ -18,13 +18,13 @@ jobs:
           node-version: '20'
 
       - name: Install Packages
-        run: yarn install
+        run: npm install
 
       - name: Run Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Run TypeScript compiler
-        run: yarn tsc --noEmit
+        run: npm run tsc
 
       - name: Run test
-        run: yarn test
+        run: npm run test
