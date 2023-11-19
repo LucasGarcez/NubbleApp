@@ -72,7 +72,7 @@ describe('integration: SearchScreen', () => {
     const trashIcon = screen.getByTestId('trash');
     fireEvent.press(trashIcon);
 
-    // 12) Make sure the user1 was removed from search history
+    // 12) Make sure the user1 was removed from the search history
     const user1AfterRemoved = screen.queryByText(userMocked.user1.username);
     expect(user1AfterRemoved).toBeFalsy();
   });
