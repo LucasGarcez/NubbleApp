@@ -51,17 +51,32 @@ describe('integration: SearchScreen', () => {
     expect(userFullName).toBeTruthy();
 
     // 6) Press the back button to navigate back to Search Screen
+    const backButton = screen.getByTestId('screen-back-button');
+    fireEvent.press(backButton);
 
     // 7) Clean the search input
+    const inputTextAfterBack = screen.getByPlaceholderText(/digite sua busca/i);
+    fireEvent.changeText(inputTextAfterBack, '');
+    act(() => jest.runAllTimers());
 
     // 8) Make sure the search history (buscas recentes) section appears
+    const searchHistoryTitle = screen.getByText(/buscas recentes/i);
+    expect(searchHistoryTitle).toBeTruthy();
 
     // 9) The user1 (pressed) was the saved in the search history
+    const user1AfterBack = screen.queryByText(userMocked.user1.username);
+    expect(user1AfterBack).toBeTruthy();
 
     // 10) The user2 (NOT pressed) must NOT appear in the search history
+    const user2AfterBack = screen.queryByText(userMocked.user2.username);
+    expect(user2AfterBack).toBeFalsy();
 
     // 11) Remove user1 from the search history by pressing the trash icon
+    const trashIcon = screen.getByTestId('trash');
+    fireEvent.press(trashIcon);
 
     // 12) Make sure the user1 was removed from the search history
+    const user1AfterRemoved = screen.queryByText(userMocked.user1.username);
+    expect(user1AfterRemoved).toBeFalsy();
   });
 });
