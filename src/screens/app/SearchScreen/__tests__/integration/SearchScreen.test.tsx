@@ -7,7 +7,6 @@ import {act, fireEvent, renderScreen, screen} from 'test-utils';
 import {AppStack} from '@routes';
 
 jest.unmock('@react-navigation/native');
-
 beforeAll(() => {
   server.listen();
   jest.useFakeTimers();
@@ -21,8 +20,6 @@ afterAll(() => {
   jest.resetAllMocks();
   jest.useRealTimers();
 });
-
-// TODO: inject storage
 
 describe('integration: SearchScreen', () => {
   test('search flow', async () => {
