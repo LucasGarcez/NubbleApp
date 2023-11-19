@@ -21,6 +21,7 @@ export function ScreenHeader({canGoBack, title, HeaderComponent}: Props) {
       justifyContent="space-between">
       {canGoBack && (
         <TouchableOpacityBox
+          testID="screen-back-button"
           flexDirection="row"
           alignItems="center"
           mr="s10"
