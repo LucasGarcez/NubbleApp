@@ -10,6 +10,7 @@ export const palette = {
   greenSuccessLight: '#D8FFEC',
   redError: '#EA3838',
   redErrorLight: '#FBECEC',
+  white70: 'rgba(255,255,255,0.7)',
 
   grayBlack: '#000000',
   gray1: '#636363',
