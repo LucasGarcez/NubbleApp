@@ -16,6 +16,7 @@ import {AppTabScreenProps} from '@routes';
 import {HomeEmpty} from './components/HomeEmpty';
 import {HomeHeader} from './components/HomeHeader';
 
+// TODO: fix home header padding top
 export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const {
     list: postList,
