@@ -1,6 +1,8 @@
 import React from 'react';
 import {ImageBackground} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
+
 import {Box, Button, Icon, Text} from '@components';
 
 interface Props {
@@ -8,6 +10,16 @@ interface Props {
   imageWidth: number;
 }
 export function Header({imageUri, imageWidth}: Props) {
+  const navigation = useNavigation();
+
+  function navigateToPublish() {
+    if (imageUri) {
+      navigation.navigate('PublishPostScreen', {
+        imageUri,
+      });
+    }
+  }
+
   return (
     <Box>
       <ImageBackground
@@ -20,10 +32,11 @@ export function Header({imageUri, imageWidth}: Props) {
         }}
         source={{uri: imageUri}}>
         <Button
+          disabled={!imageUri}
           preset="ghost"
           marginBottom="s24"
           title="Escolher essa"
-          // onPress={_handleButtonPress}
+          onPress={navigateToPublish}
         />
       </ImageBackground>
       <Box
