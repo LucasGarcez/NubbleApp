@@ -7,6 +7,8 @@ import {cameraRollService} from './cameraRollService';
 /**
  * return a paginated list of image uri
  */
+// TODO: check if has image. (Test with android no Image)
+// TODO: add reload (refetch)
 export function useCameraRoll(onInitialLoad?: (image: string) => void) {
   const [list, setList] = useState<string[]>([]);
 

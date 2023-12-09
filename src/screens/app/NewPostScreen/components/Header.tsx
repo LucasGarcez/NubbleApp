@@ -2,9 +2,9 @@ import React from 'react';
 import {ImageBackground} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import {Camera} from 'react-native-vision-camera';
 
 import {Box, Button, Icon, Text} from '@components';
-
 interface Props {
   imageUri?: string;
   imageWidth: number;
@@ -18,6 +18,10 @@ export function Header({imageUri, imageWidth}: Props) {
         imageUri,
       });
     }
+  }
+
+  function navigateToCamera() {
+    navigation.navigate('CameraScreen');
   }
 
   return (
@@ -46,7 +50,7 @@ export function Header({imageUri, imageWidth}: Props) {
         alignItems="center"
         justifyContent="space-between">
         <Text preset="headingSmall">Sua Galeria</Text>
-        <Icon name="camera" />
+        <Icon name="camera" onPress={navigateToCamera} />
       </Box>
     </Box>
   );

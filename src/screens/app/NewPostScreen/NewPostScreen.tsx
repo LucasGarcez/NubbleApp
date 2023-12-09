@@ -16,12 +16,17 @@ import {Header} from './components/Header';
 
 const IMAGE_WIDTH = Dimensions.get('screen').width;
 
+//TODO: Add logic to request and handle permission
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   const [selectedImage, setSelectedImage] = useState<string>();
   const {photoList, fetchNextPage} = useCameraRoll(setSelectedImage);
 
   const flatListRef = React.useRef<FlatList<string>>(null);
+
+  // useEffect(() => {
+  //   hasAndroidPermission().then(has => setHastPar(has));
+  // }, []);
 
   function onSelectItem(item: string) {
     setSelectedImage(item);
