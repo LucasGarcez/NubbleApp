@@ -7,26 +7,22 @@ import {
   Pressable,
 } from 'react-native';
 
-import {useCameraRoll} from '@services';
+import {useCameraRoll, usePermission} from '@services';
 
-import {Screen} from '@components';
+import {PermissionManager, Screen} from '@components';
 import {AppTabScreenProps} from '@routes';
 
 import {Header} from './components/Header';
 
 const IMAGE_WIDTH = Dimensions.get('screen').width;
 
-//TODO: Add logic to request and handle permission
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
+export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
   const [selectedImage, setSelectedImage] = useState<string>();
-  const {photoList, fetchNextPage} = useCameraRoll(setSelectedImage);
+  const permission = usePermission('photoLibrary');
+  const isAllowed = permission.status === 'granted';
+  const {photoList, fetchNextPage} = useCameraRoll(isAllowed, setSelectedImage);
 
   const flatListRef = React.useRef<FlatList<string>>(null);
-
-  // useEffect(() => {
-  //   hasAndroidPermission().then(has => setHastPar(has));
-  // }, []);
 
   function onSelectItem(item: string) {
     setSelectedImage(item);
@@ -45,19 +41,24 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   }
 
   return (
-    <Screen canGoBack title="Novo post" noPaddingHorizontal>
-      <FlatList
-        ref={flatListRef}
-        showsVerticalScrollIndicator={false}
-        onEndReached={fetchNextPage}
-        onEndReachedThreshold={0.1}
-        ListHeaderComponent={
-          <Header imageWidth={IMAGE_WIDTH} imageUri={selectedImage} />
-        }
-        numColumns={4}
-        data={photoList}
-        renderItem={renderItem}
-      />
-    </Screen>
+    <PermissionManager
+      isLoading={permission.isLoading}
+      status={permission.status}
+      description="Permita o Nubble acessar as images da sua galeria">
+      <Screen canGoBack title="Novo post" noPaddingHorizontal>
+        <FlatList
+          ref={flatListRef}
+          showsVerticalScrollIndicator={false}
+          onEndReached={fetchNextPage}
+          onEndReachedThreshold={0.1}
+          ListHeaderComponent={
+            <Header imageWidth={IMAGE_WIDTH} imageUri={selectedImage} />
+          }
+          numColumns={4}
+          data={photoList}
+          renderItem={renderItem}
+        />
+      </Screen>
+    </PermissionManager>
   );
 }

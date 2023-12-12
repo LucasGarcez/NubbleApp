@@ -2,7 +2,6 @@ import React from 'react';
 import {ImageBackground} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import {Camera} from 'react-native-vision-camera';
 
 import {Box, Button, Icon, Text} from '@components';
 interface Props {

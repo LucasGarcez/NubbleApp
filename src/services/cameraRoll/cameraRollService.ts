@@ -3,7 +3,7 @@ import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {PhotoListPaginated} from './cameraRollTypes';
 
 async function getPhotos(cursor?: string): Promise<PhotoListPaginated> {
-  console.log('getPhotos:', cursor);
+  console.log('getPhotos called');
   const result = await CameraRoll.getPhotos({
     first: 40,
     after: cursor,

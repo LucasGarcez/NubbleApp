@@ -9,13 +9,17 @@ import {cameraRollService} from './cameraRollService';
  */
 // TODO: check if has image. (Test with android no Image)
 // TODO: add reload (refetch)
-export function useCameraRoll(onInitialLoad?: (image: string) => void) {
+export function useCameraRoll(
+  enabled: boolean,
+  onInitialLoad?: (image: string) => void,
+) {
   const [list, setList] = useState<string[]>([]);
 
   const query = useInfiniteQuery({
     queryKey: ['CameraRoll'],
     queryFn: ({pageParam}) => cameraRollService.getPhotos(pageParam),
     getNextPageParam: ({cursor}) => cursor,
+    enabled,
   });
 
   useEffect(() => {
