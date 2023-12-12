@@ -1,3 +1,3 @@
-export * from './permissionService.ios';
+export * from './permissionService';
 export * from './permissionTypes';
 export * from './usePermission';
