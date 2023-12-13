@@ -6,6 +6,7 @@ module.exports = {
       {
         root: '.',
         alias: {
+          // This need to be mirrored in tsconfig.json
           '@components': './src/components',
           '@hooks': './src/hooks',
           '@routes': './src/routes',
@@ -19,6 +20,7 @@ module.exports = {
           '@infra': './src/infra',
           '@services': './src/services',
           '@test': './src/test',
+          '@assets': './src/assets',
         },
       },
     ],

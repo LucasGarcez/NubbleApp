@@ -1,9 +1,11 @@
 import React from 'react';
 import {ImageBackground} from 'react-native';
 
+import {images} from '@assets';
 import {useNavigation} from '@react-navigation/native';
 
 import {Box, Button, Icon, Text} from '@components';
+
 interface Props {
   imageUri?: string;
   imageWidth: number;
@@ -33,7 +35,7 @@ export function Header({imageUri, imageWidth}: Props) {
           justifyContent: 'flex-end',
           alignItems: 'center',
         }}
-        source={{uri: imageUri}}>
+        source={imageUri ? {uri: imageUri} : images.imagePlaceholder}>
         <Button
           disabled={!imageUri}
           preset="ghost"

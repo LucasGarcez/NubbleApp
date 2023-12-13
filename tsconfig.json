@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      // This need to be mirrored in babel.config.ts
       "@components": ["src/components"],
       "@hooks": ["src/hooks"],
       "@routes": ["src/routes"],
@@ -16,6 +17,7 @@
       "@infra": ["src/infra"],
       "@services": ["src/services"],
       "@test": ["src/test"],
+      "@assets": ["src/assets"],
       "test-utils": ["src/test/test-utils"]
     }
   }
