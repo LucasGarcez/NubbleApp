@@ -7,7 +7,6 @@ import {
 } from './permissionTypes';
 
 async function request(name: PermissionName): Promise<PermissionStatus> {
-  console.log('android request');
   const permission = mapName(name);
   if (permission) {
     const result = await PermissionsAndroid.request(permission);
@@ -16,7 +15,6 @@ async function request(name: PermissionName): Promise<PermissionStatus> {
   return 'unavailable';
 }
 async function check(name: PermissionName): Promise<PermissionStatus> {
-  console.log('android check');
   const permission = mapName(name);
 
   if (permission) {

@@ -6,7 +6,6 @@ export function usePermission(permissionName: PermissionName) {
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState<PermissionStatus>();
 
-  // TODO: CHECK PERMISSION ON FOCUS
   async function checkPermission() {
     try {
       setIsLoading(true);

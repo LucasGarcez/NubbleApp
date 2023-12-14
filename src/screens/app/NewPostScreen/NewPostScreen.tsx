@@ -19,8 +19,8 @@ const IMAGE_WIDTH = Dimensions.get('screen').width;
 export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
   const [selectedImage, setSelectedImage] = useState<string>();
   const permission = usePermission('photoLibrary');
-  const isAllowed = permission.status === 'granted';
-  const {photoList, fetchNextPage} = useCameraRoll(isAllowed, setSelectedImage);
+  const isGranted = permission.status === 'granted';
+  const {photoList, fetchNextPage} = useCameraRoll(isGranted, setSelectedImage);
 
   const flatListRef = React.useRef<FlatList<string>>(null);
 
@@ -42,8 +42,7 @@ export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
 
   return (
     <PermissionManager
-      isLoading={permission.isLoading}
-      status={permission.status}
+      permissionName="photoLibrary"
       description="Permita o Nubble acessar as images da sua galeria">
       <Screen canGoBack title="Novo post" noPaddingHorizontal>
         <FlatList
