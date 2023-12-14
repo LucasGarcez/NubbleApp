@@ -3,7 +3,7 @@ import {Dimensions, StyleSheet} from 'react-native';
 
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 
-import {Box, Icon, PermissionManager} from '@components';
+import {Box, Icon, PermissionManager, PressableBox} from '@components';
 import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
 
@@ -11,8 +11,9 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const CAMERA_VIEW_SIZE = Dimensions.get('screen').width;
 const CONTROL_AREA = SCREEN_HEIGHT - CAMERA_VIEW_SIZE;
 
-export function CameraScreen({}: AppScreenProps<'CameraScreen'>) {
+export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
   const [isReady, setIsReady] = useState(false);
+  const [flashOn, setFlashOn] = useState(false);
   const camera = useRef<Camera>(null);
   const safeArea = useAppSafeArea();
 
@@ -23,6 +24,23 @@ export function CameraScreen({}: AppScreenProps<'CameraScreen'>) {
       'telephoto-camera',
     ],
   });
+
+  async function takePhoto() {
+    if (camera.current) {
+      const photoFile = await camera?.current.takePhoto({
+        flash: flashOn ? 'on' : 'off',
+        qualityPrioritization: 'quality',
+      });
+
+      navigation.navigate('PublishPostScreen', {
+        imageUri: `file://${photoFile.path}`,
+      });
+    }
+  }
+
+  function toggleFlash() {
+    setFlashOn(prev => !prev);
+  }
 
   return (
     <PermissionManager
@@ -35,6 +53,7 @@ export function CameraScreen({}: AppScreenProps<'CameraScreen'>) {
             style={StyleSheet.absoluteFill}
             device={device}
             isActive={true}
+            photo={true}
             onInitialized={() => setIsReady(true)}
           />
         )}
@@ -46,14 +65,27 @@ export function CameraScreen({}: AppScreenProps<'CameraScreen'>) {
               styles.controlArea,
               styles.topArea,
             ]}>
-            <Icon size={30} color="grayWhite" name="arrowLeft" />
-            <Icon size={30} color="grayWhite" name="flashOff" />
+            <Icon
+              size={30}
+              color="grayWhite"
+              name="arrowLeft"
+              onPress={navigation.goBack}
+            />
+            {device?.hasFlash && (
+              <Icon
+                size={30}
+                color="grayWhite"
+                name={flashOn ? 'flashOn' : 'flashOff'}
+                onPress={toggleFlash}
+              />
+            )}
             <Box width={30} />
           </Box>
 
           <Box style={[styles.controlArea, styles.bottomArea]}>
             {isReady && (
-              <Box
+              <PressableBox
+                onPress={takePhoto}
                 backgroundColor="grayWhite"
                 height={80}
                 width={80}
