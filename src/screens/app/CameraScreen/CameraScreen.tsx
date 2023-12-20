@@ -1,10 +1,15 @@
 import React, {useRef, useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
-import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import {useIsFocused} from '@react-navigation/native';
+import {
+  Camera,
+  useCameraDevice,
+  useCameraFormat,
+} from 'react-native-vision-camera';
 
-import {Box, Icon, PermissionManager, PressableBox} from '@components';
-import {useAppSafeArea} from '@hooks';
+import {Box, Icon, PermissionManager} from '@components';
+import {useAppSafeArea, useAppState} from '@hooks';
 import {AppScreenProps} from '@routes';
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -12,6 +17,10 @@ const CAMERA_VIEW_SIZE = Dimensions.get('screen').width;
 const CONTROL_AREA = SCREEN_HEIGHT - CAMERA_VIEW_SIZE;
 
 export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
+  const isFocused = useIsFocused();
+  const appState = useAppState();
+  const isActive = isFocused && appState === 'active';
+
   const [isReady, setIsReady] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
   const camera = useRef<Camera>(null);
@@ -24,6 +33,11 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
       'telephoto-camera',
     ],
   });
+
+  const format = useCameraFormat(device, [
+    {photoHdr: true},
+    {photoResolution: {width: 1080, height: 1080}},
+  ]);
 
   async function takePhoto() {
     if (camera.current) {
@@ -49,12 +63,14 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
       <Box flex={1}>
         {device != null && (
           <Camera
+            enableHighQualityPhotos={true}
             ref={camera}
             style={StyleSheet.absoluteFill}
             device={device}
-            isActive={true}
+            isActive={isActive}
             photo={true}
             onInitialized={() => setIsReady(true)}
+            format={format}
           />
         )}
 
@@ -84,12 +100,11 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
 
           <Box style={[styles.controlArea, styles.bottomArea]}>
             {isReady && (
-              <PressableBox
+              <Icon
                 onPress={takePhoto}
-                backgroundColor="grayWhite"
-                height={80}
-                width={80}
-                style={{borderRadius: 40}}
+                name="cameraClick"
+                color="grayWhite"
+                size={80}
               />
             )}
           </Box>
