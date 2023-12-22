@@ -1537,6 +1537,11 @@
   dependencies:
     merge-options "^3.0.4"
 
+"@react-native-camera-roll/camera-roll@^7.2.2":
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/@react-native-camera-roll/camera-roll/-/camera-roll-7.2.2.tgz#debac059df33cb53e632db4ae8bac1a993464592"
+  integrity sha512-imxzopalST7BCDRA1VNjlN8JUXiSenH201DX7u3Z2wc/5W9ctPDHkJVheJqdQRO4k0COvNpe3b3RV1zCs3FOrw==
+
 "@react-native-community/cli-clean@^10.1.1":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-10.1.1.tgz#4c73ce93a63a24d70c0089d4025daac8184ff504"

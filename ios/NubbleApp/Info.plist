@@ -5,7 +5,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Panchang-Light.otf</string>
-		
 		<string>Satoshi-Black.otf</string>
 		<string>Satoshi-BlackItalic.otf</string>
 		<string>Satoshi-Bold.otf</string>
@@ -16,7 +15,6 @@
 		<string>Satoshi-Medium.otf</string>
 		<string>Satoshi-MediumItalic.otf</string>
 		<string>Satoshi-Regular.otf</string>
-	
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -67,5 +65,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Para publicar novos posts</string>
 </dict>
 </plist>
