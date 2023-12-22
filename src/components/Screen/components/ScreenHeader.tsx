@@ -11,6 +11,10 @@ type Props = Pick<ScreenProps, 'title' | 'canGoBack' | 'HeaderComponent'>;
 export function ScreenHeader({canGoBack, title, HeaderComponent}: Props) {
   const navigation = useNavigation();
 
+  if (!title && !canGoBack && !HeaderComponent) {
+    return null;
+  }
+
   const showBackLabel = !title && !HeaderComponent;
 
   return (
