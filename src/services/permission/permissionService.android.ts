@@ -7,7 +7,6 @@ import {
 } from './permissionTypes';
 
 async function check(name: PermissionName): Promise<PermissionStatus> {
-  console.log('PERMISSION ANDROID');
   const permission = mapNameToPermission(name);
   if (permission) {
     const result = await PermissionsAndroid.check(permission);
