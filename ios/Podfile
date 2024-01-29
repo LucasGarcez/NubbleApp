@@ -7,7 +7,7 @@ prepare_react_native_project!
 
 
 setup_permissions([
-  # 'Camera',
+  'Camera',
  'PhotoLibrary', 
 ])
 
