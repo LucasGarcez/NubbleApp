@@ -7,6 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 
+import {PostImage} from '@domain';
 import {useCameraRoll, usePermission} from '@services';
 
 import {PermissionManager, Screen} from '@components';
@@ -19,7 +20,7 @@ const NUM_COLUMNS = 4;
 const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
-  const [selectedImage, setSelectedImage] = useState<string>();
+  const [selectedImage, setSelectedImage] = useState<PostImage>();
   const permission = usePermission('photoLibrary');
   const {photoList, fetchNextPage} = useCameraRoll(
     permission.status === 'granted',
@@ -28,17 +29,17 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
 
   const flatListRef = useRef<FlatList>(null);
 
-  function onSelectImage(imageUri: string) {
+  function onSelectImage(imageUri: PostImage) {
     setSelectedImage(imageUri);
     flatListRef.current?.scrollToOffset({offset: 0, animated: true});
   }
 
-  function renderItem({item}: ListRenderItemInfo<string>) {
+  function renderItem({item}: ListRenderItemInfo<PostImage>) {
     return (
       <Pressable onPress={() => onSelectImage(item)}>
         <Image
-          key={item}
-          source={{uri: item}}
+          key={item.uri}
+          source={{uri: item.uri}}
           style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
         />
       </Pressable>
@@ -57,7 +58,7 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
           onEndReached={fetchNextPage}
           onEndReachedThreshold={0.1}
           ListHeaderComponent={
-            <Header imageWidth={SCREEN_WIDTH} imageUri={selectedImage} />
+            <Header imageWidth={SCREEN_WIDTH} image={selectedImage} />
           }
         />
       </Screen>

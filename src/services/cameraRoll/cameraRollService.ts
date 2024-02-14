@@ -1,11 +1,16 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
+import {cameraRollAdapter} from './cameraRollAdapter';
 import {PhotoListPaginated} from './cameraRollTypes';
 
 async function getPhotos(cursor?: string): Promise<PhotoListPaginated> {
-  const photoPage = await CameraRoll.getPhotos({first: 12, after: cursor});
+  const photoPage = await CameraRoll.getPhotos({
+    first: 12,
+    after: cursor,
+    include: ['filename', 'fileExtension', 'imageSize'],
+  });
 
-  const photoList = photoPage.edges.map(edge => edge.node.image.uri);
+  const photoList = photoPage.edges.map(cameraRollAdapter.toPostImage);
 
   return {
     photoList,

@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 
+import {PostImage} from '@domain';
 import {QueryKeys} from '@infra';
 import {useInfiniteQuery} from '@tanstack/react-query';
 
@@ -7,9 +8,9 @@ import {cameraRollService} from './cameraRollService';
 
 export function useCameraRoll(
   hasPermission: boolean,
-  onInitialLoad?: (imageUri: string) => void,
+  onInitialLoad?: (imageUri: PostImage) => void,
 ) {
-  const [list, setList] = useState<string[]>([]);
+  const [list, setList] = useState<PostImage[]>([]);
 
   const query = useInfiniteQuery({
     queryKey: [QueryKeys.CameraRollList],
@@ -26,7 +27,7 @@ export function useCameraRoll(
 
   useEffect(() => {
     if (query.data) {
-      const newList = query.data.pages.reduce<string[]>((prev, curr) => {
+      const newList = query.data.pages.reduce<PostImage[]>((prev, curr) => {
         return [...prev, ...curr.photoList];
       }, []);
       setList(newList);
