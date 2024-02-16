@@ -46,7 +46,11 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
       });
 
       navigation.navigate('PublishPostScreen', {
-        imageUri: `file://${photoFile?.path}`,
+        postImage: {
+          uri: `file://${photoFile?.path}`,
+          name: 'fotoname',
+          type: 'jpg',
+        },
       });
     }
   }
@@ -69,6 +73,7 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
             photo={true}
             onInitialized={() => setIsReady(true)}
             enableHighQualityPhotos={true}
+            orientation="portrait"
           />
         )}
 

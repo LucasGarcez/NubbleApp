@@ -20,7 +20,9 @@ export function PublishPostScreen({
 
   const {createPost} = usePostCreate({
     onSuccess: () => {
-      navigation.navigate('AppTabNavigator', {screen: 'HomeScreen'});
+      navigation.navigate('AppTabNavigator', {
+        screen: 'HomeScreen',
+      });
       showToast({message: 'Foto publicada!', type: 'success'});
     },
   });

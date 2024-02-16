@@ -42,6 +42,6 @@ export interface PostAPI {
 
 export interface PostImage {
   uri: string;
-  type: string; //image/png
+  type: string;
   name: string;
 }

@@ -14,16 +14,20 @@ async function createPost(
   text: string,
   postImage: PostImage,
 ): Promise<PostAPI> {
+  const newPost = {
+    ...postImage,
+    type: `image/${postImage.type}`,
+  };
   try {
     const form = new FormData();
     form.append('text', text);
-    form.append('imageCover', postImage);
+    form.append('imageCover', newPost);
 
     const response = await api.postForm<PostAPI>('user/post', form);
 
     return response.data;
   } catch (error) {
-    throw new Error('erro to updload image');
+    throw new Error('erro to upload image');
   }
 }
 

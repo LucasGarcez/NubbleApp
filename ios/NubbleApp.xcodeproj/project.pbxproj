@@ -551,6 +551,7 @@
 				DEVELOPMENT_TEAM = J29497Z9T9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NubbleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Nubble;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -561,7 +562,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coffstack.nubble;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.coffstack.nubble;
 				PRODUCT_NAME = NubbleApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -581,6 +582,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J29497Z9T9;
 				INFOPLIST_FILE = NubbleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Nubble;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -591,7 +593,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coffstack.nubble;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.coffstack.nubble;
 				PRODUCT_NAME = NubbleApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
