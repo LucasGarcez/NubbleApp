@@ -13,7 +13,7 @@ export function PublishPostScreen({
   route,
   navigation,
 }: AppScreenProps<'PublishPostScreen'>) {
-  const postImage = route.params.postImage;
+  const imageUri = route.params.imageUri;
 
   const [description, setDescription] = useState('');
   const {showToast} = useToastService();
@@ -27,15 +27,18 @@ export function PublishPostScreen({
     },
   });
 
-  function publishPost() {
-    createPost({text: description, postImage});
+  async function publishPost() {
+    createPost({
+      description,
+      imageUri,
+    });
   }
 
   return (
     <Screen scrollable canGoBack title="Novo Post">
       <Image
         source={{
-          uri: postImage.uri,
+          uri: imageUri,
         }}
         // eslint-disable-next-line react-native/no-inline-styles
         style={{

@@ -1,5 +1,3 @@
-import {PostImage} from '@domain';
-
 export type PhotoType = {
   uri: string;
   filename: string | null;
@@ -7,7 +5,13 @@ export type PhotoType = {
 };
 
 export type PhotoListPaginated = {
-  photoList: PostImage[];
+  photoList: string[];
   cursor?: string;
   hasNextPage: boolean;
+};
+
+export type ImageForUpload = {
+  uri: string; // should include the "file:// at the beginning"
+  type: 'image/png' | 'image/jpeg';
+  name: string;
 };

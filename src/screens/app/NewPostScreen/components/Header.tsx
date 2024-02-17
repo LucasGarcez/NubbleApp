@@ -2,7 +2,6 @@ import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 
 import {images} from '@assets';
-import {PostImage} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
 import {Box, BoxProps, Button, Icon, Text} from '@components';
@@ -10,14 +9,13 @@ import {Box, BoxProps, Button, Icon, Text} from '@components';
 interface Props {
   imageUri?: string;
   imageWidth: number;
-  image?: PostImage;
 }
-export function Header({image, imageWidth}: Props) {
+export function Header({imageUri, imageWidth}: Props) {
   const navigation = useNavigation();
 
   function navigateToPublishPost() {
-    if (image) {
-      navigation.navigate('PublishPostScreen', {postImage: image});
+    if (imageUri) {
+      navigation.navigate('PublishPostScreen', {imageUri});
     }
   }
 
@@ -27,7 +25,7 @@ export function Header({image, imageWidth}: Props) {
   return (
     <Box>
       <ImageBackground
-        source={image?.uri ? {uri: image.uri} : images.imagePlaceholder}
+        source={imageUri ? {uri: imageUri} : images.imagePlaceholder}
         style={[
           {
             width: imageWidth,
@@ -35,7 +33,7 @@ export function Header({image, imageWidth}: Props) {
           },
           styles.imageBackground,
         ]}>
-        {Boolean(image?.uri) && (
+        {Boolean(imageUri) && (
           <Button
             onPress={navigateToPublishPost}
             preset="ghost"

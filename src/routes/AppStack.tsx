@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {PostImage} from '@domain';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -27,7 +26,7 @@ export type AppStackParamList = {
     userId: number;
   };
   PublishPostScreen: {
-    postImage: PostImage;
+    imageUri: string;
   };
   CameraScreen: undefined;
 };

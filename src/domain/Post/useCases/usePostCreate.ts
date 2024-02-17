@@ -1,8 +1,9 @@
 import {MutationOptions, QueryKeys} from '@infra';
+import {ImageForUpload, multimediaService} from '@services';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {postService} from '../postService';
-import {Post, PostImage} from '../postTypes';
+import {Post} from '../postTypes';
 
 export function usePostCreate(options?: MutationOptions<Post>) {
   const queryClient = useQueryClient();
@@ -10,9 +11,9 @@ export function usePostCreate(options?: MutationOptions<Post>) {
   const {mutate, isLoading, isError} = useMutation<
     Post,
     unknown,
-    {text: string; postImage: PostImage}
+    {text: string; image: ImageForUpload}
   >({
-    mutationFn: ({text, postImage}) => postService.createPost(text, postImage),
+    mutationFn: ({text, image}) => postService.createPost(text, image),
     onSuccess: data => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.PostList],
@@ -28,8 +29,19 @@ export function usePostCreate(options?: MutationOptions<Post>) {
     },
   });
 
+  async function createPost({
+    description,
+    imageUri,
+  }: {
+    description: string;
+    imageUri: string;
+  }) {
+    const image = await multimediaService.prepareImageForUpload(imageUri);
+    mutate({text: description, image});
+  }
+
   return {
-    createPost: mutate,
+    createPost,
     isLoading,
     isError,
   };
