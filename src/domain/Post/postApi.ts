@@ -10,13 +10,11 @@ async function getList(params?: PageParams): Promise<PageAPI<PostAPI>> {
   return response.data;
 }
 
-//TODO: double check return API
 async function createPost(
   text: string,
   imageCover: ImageForUpload,
 ): Promise<PostAPI> {
   try {
-    console.log('imageCover:', imageCover);
     const form = new FormData();
     form.append('text', text);
     form.append('imageCover', imageCover);
