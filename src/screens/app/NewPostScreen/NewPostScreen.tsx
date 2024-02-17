@@ -5,6 +5,7 @@ import {
   Image,
   ListRenderItemInfo,
   Pressable,
+  RefreshControl,
 } from 'react-native';
 
 import {useMultimediaGetPhotos, usePermission} from '@services';
@@ -21,7 +22,7 @@ const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   const [selectedImage, setSelectedImage] = useState<string>();
   const permission = usePermission('photoLibrary');
-  const {photoList, fetchNextPage} = useMultimediaGetPhotos(
+  const {photoList, fetchNextPage, refetch, isLoading} = useMultimediaGetPhotos(
     permission.status === 'granted',
     setSelectedImage,
   );
@@ -54,6 +55,10 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
           numColumns={NUM_COLUMNS}
           data={photoList}
           renderItem={renderItem}
+          refreshing={isLoading}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
           onEndReached={fetchNextPage}
           onEndReachedThreshold={0.1}
           ListHeaderComponent={

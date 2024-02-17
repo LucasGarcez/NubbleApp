@@ -7,7 +7,7 @@ import {ImageForUpload, PhotoListPaginated} from './multimediaTypes';
 
 async function getPhotos(cursor?: string): Promise<PhotoListPaginated> {
   const photoPage = await CameraRoll.getPhotos({
-    first: 12,
+    first: 30,
     after: cursor,
     include: ['filename', 'fileExtension', 'imageSize'],
   });

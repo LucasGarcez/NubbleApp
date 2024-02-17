@@ -41,5 +41,7 @@ export function useMultimediaGetPhotos(
     photoList: list,
     hasNextPage: query.hasNextPage,
     fetchNextPage,
+    refetch: () => query.refetch(),
+    isLoading: query.isLoading,
   };
 }
