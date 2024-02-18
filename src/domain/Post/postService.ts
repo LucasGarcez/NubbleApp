@@ -14,9 +14,9 @@ async function getList(page: number): Promise<Page<Post>> {
 
 async function createPost(
   text: string,
-  postImage: ImageForUpload,
+  imageCover: ImageForUpload,
 ): Promise<Post> {
-  const postApiData = await postApi.createPost(text, postImage);
+  const postApiData = await postApi.createPost(text, imageCover);
   return postAdapter.toPost(postApiData);
 }
 
