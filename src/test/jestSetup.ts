@@ -42,4 +42,8 @@ jest.mock('../services/permission/permissionService', () => ({
   },
 }));
 
+jest.mock('expo-image-manipulator', () => ({
+  manipulateAsync: jest.fn(),
+}));
+
 initializeStorage(inMemoryStorage);

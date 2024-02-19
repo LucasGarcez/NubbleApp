@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {useIsFocused} from '@react-navigation/native';
+import {multimediaService} from '@services';
 import {
   Camera,
   Templates,
@@ -46,7 +47,7 @@ export function CameraScreen({navigation}: AppScreenProps<'CameraScreen'>) {
       });
 
       navigation.navigate('PublishPostScreen', {
-        imageUri: `file://${photoFile?.path}`,
+        imageUri: multimediaService.prepareImageUri(photoFile.path),
       });
     }
   }
