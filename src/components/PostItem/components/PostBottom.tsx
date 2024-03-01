@@ -24,7 +24,7 @@ export function PostBottom({author, text, commentCount, id}: Props) {
       <Text preset="paragraphMedium" bold>
         {author.userName}
       </Text>
-      <Text preset="paragraphMedium" color="gray1">
+      <Text preset="paragraphMedium" color="paragraphSecondary">
         {text}
       </Text>
       {commentText && (

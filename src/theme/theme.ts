@@ -4,7 +4,7 @@ import {ViewStyle} from 'react-native/types';
 import {colors} from './colors';
 
 export const theme = createTheme({
-  colors: colors.darkColors,
+  colors: colors.lightColors,
   spacing: {
     s4: 4,
     s8: 8,
@@ -29,6 +29,11 @@ export const theme = createTheme({
     defaults: {},
   },
 });
+
+export const darkTheme = {
+  ...theme,
+  colors: colors.darkColors,
+};
 
 export const $shadowProps: ViewStyle = {
   elevation: 10,
