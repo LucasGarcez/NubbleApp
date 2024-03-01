@@ -39,11 +39,13 @@ import {TrashIcon} from '../../assets/icons/TrashIcon';
 export interface IconBase {
   size?: number;
   color?: string;
+  fillColor?: string;
 }
 
 export interface IconProps {
   name: IconName;
   color?: ThemeColors;
+  fillColor?: ThemeColors;
   size?: number;
   onPress?: () => void;
 }
@@ -52,19 +54,26 @@ export function Icon({
   color = 'backgroundContrast',
   size,
   onPress,
+  fillColor = 'backgroundContrast',
 }: IconProps) {
   const {colors} = useAppTheme();
   const SVGIcon = iconRegistry[name];
 
+  const props: React.ComponentProps<typeof SVGIcon> = {
+    color: colors[color],
+    fillColor: colors[fillColor],
+    size: size,
+  };
+
   if (onPress) {
     return (
       <Pressable testID={name} hitSlop={10} onPress={onPress}>
-        <SVGIcon color={colors[color]} size={size} />
+        <SVGIcon {...props} />
       </Pressable>
     );
   }
 
-  return <SVGIcon color={colors[color]} size={size} />;
+  return <SVGIcon {...props} />;
 }
 
 const iconRegistry = {
