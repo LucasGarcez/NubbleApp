@@ -36,6 +36,7 @@ const lightColors = {
   successLight: palette.greenSuccessLight,
 
   market: palette.carrotSecondary,
+  paragraphSecondary: palette.gray1,
 };
 
 type ColorsType = typeof lightColors;
@@ -57,6 +58,7 @@ const darkColors: ColorsType = {
   successLight: palette.greenSuccessLight,
 
   market: palette.carrotSecondary,
+  paragraphSecondary: palette.grayWhite,
 };
 
 export const colors = {

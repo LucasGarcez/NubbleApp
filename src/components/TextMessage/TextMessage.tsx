@@ -48,7 +48,7 @@ export function TextMessage({
         <Pressable
           disabled={sendIsDisabled}
           onPress={() => onPressSend(value || '')}>
-          <Text color={sendIsDisabled ? 'gray2' : 'primary'} bold>
+          <Text color={sendIsDisabled ? 'gray2' : 'greenPrimary'} bold>
             Enviar
           </Text>
         </Pressable>
