@@ -18,7 +18,7 @@ initializeStorage(MMKVStorage);
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
-  const colorScheme = useAppColorScheme();
+  const appTheme = useAppColorScheme();
   const {onSystemChange} = useSettingsService();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function App(): JSX.Element {
     <AuthCredentialsProvider>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
-          <ThemeProvider theme={colorScheme === 'dark' ? darkTheme : theme}>
+          <ThemeProvider theme={appTheme === 'dark' ? darkTheme : theme}>
             {/* Only use ToastProvider if it is using Context implementation.
           Zustand implementation doesn't need a provider */}
             {/* <ToastProvider> */}

@@ -1,29 +1,45 @@
-import {Appearance} from 'react-native';
+import {Appearance, Platform, StatusBar} from 'react-native';
 
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
+import {colors} from '@theme';
+
 import {storage} from '../storage';
 
-import {SettingsService} from './settingsType';
+import {AppTheme, SettingsService} from './settingsType';
+
+function handleStatusBar(appTheme: AppTheme) {
+  StatusBar.setBarStyle(appTheme === 'dark' ? 'light-content' : 'dark-content');
+  if (Platform.OS === 'android') {
+    StatusBar.setBackgroundColor(
+      appTheme === 'dark' ? colors.palette.grayBlack : colors.palette.grayWhite,
+    );
+  }
+}
 
 const useSettingsStore = create<SettingsService>()(
   persist(
     (set, get) => ({
-      appColorScheme: 'light',
-      colorSchemePreference: 'system',
-      onSystemChange: value => {
-        if (get().colorSchemePreference === 'system' && value) {
-          set({appColorScheme: value});
+      appTheme: 'light',
+      userPreference: 'system',
+      onSystemChange: systemTheme => {
+        const userPreference = get().userPreference;
+        if (userPreference === 'system' && systemTheme) {
+          set({appTheme: systemTheme});
+          handleStatusBar(systemTheme);
         }
       },
-      setColorSchemePreference: pref => {
-        if (pref === 'system') {
-          const color = Appearance.getColorScheme();
-          if (color) {
-            set({appColorScheme: color});
-          }
+      setUserPreference: newUserPreference => {
+        let appTheme: AppTheme;
+        if (newUserPreference === 'system') {
+          const systemScheme = Appearance.getColorScheme();
+          appTheme = systemScheme || 'light';
+        } else {
+          appTheme = newUserPreference;
         }
+        set({appTheme});
+        handleStatusBar(appTheme);
       },
     }),
     {
@@ -33,20 +49,18 @@ const useSettingsStore = create<SettingsService>()(
   ),
 );
 
-export function useAppColorScheme(): SettingsService['appColorScheme'] {
-  return useSettingsStore(state => state.appColorScheme);
+export function useAppColorScheme(): SettingsService['appTheme'] {
+  return useSettingsStore(state => state.appTheme);
 }
 export function useSettingsService(): Pick<
   SettingsService,
-  'onSystemChange' | 'setColorSchemePreference'
+  'onSystemChange' | 'setUserPreference'
 > {
   const onSystemChange = useSettingsStore(state => state.onSystemChange);
-  const setColorSchemePreference = useSettingsStore(
-    state => state.setColorSchemePreference,
-  );
+  const setUserPreference = useSettingsStore(state => state.setUserPreference);
 
   return {
     onSystemChange,
-    setColorSchemePreference,
+    setUserPreference,
   };
 }
