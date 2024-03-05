@@ -1,15 +1,14 @@
 import React from 'react';
 
+import {UserPreference, useSettingsService, useUsePreference} from '@services';
+
 import {RadioButtonSelector, Screen, Text} from '@components';
 import {AppScreenProps} from '@routes';
 
-// import {Batata, batatas, pessoas, Pessoa} from './dataExample';
-
-type ThemeApp = 'light' | 'dark' | 'system';
 type Option = {
   label: string;
   description?: string;
-  value: ThemeApp;
+  value: UserPreference;
 };
 const options: Option[] = [
   {
@@ -29,14 +28,23 @@ const options: Option[] = [
 ];
 
 export function DarkModeScreen({}: AppScreenProps<'DarkModeScreen'>) {
-  const [selectedItem, setSelectedItem] = React.useState<Option | null>(null);
+  // const [selectedItem, setSelectedItem] = React.useState<Option | null>(null);
+  const {setUserPreference} = useSettingsService();
+  const userPreference = useUsePreference();
+
+  const selectedItem = options.find(option => option.value === userPreference);
+  console.log(selectedItem);
+  const setSelectedItem = (item: Option) => {
+    setUserPreference(item.value);
+  };
+
   return (
     <Screen flex={1} canGoBack title="Modo Escuro">
       <RadioButtonSelector
         items={options}
         labelKey="label"
         descriptionKey="description"
-        valueKey="label"
+        valueKey="value"
         selectedItem={selectedItem}
         onSelect={setSelectedItem}
       />

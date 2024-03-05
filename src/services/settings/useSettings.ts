@@ -38,7 +38,7 @@ const useSettingsStore = create<SettingsService>()(
         } else {
           appTheme = newUserPreference;
         }
-        set({appTheme});
+        set({appTheme, userPreference: newUserPreference});
         handleStatusBar(appTheme);
       },
     }),
@@ -51,6 +51,9 @@ const useSettingsStore = create<SettingsService>()(
 
 export function useAppColorScheme(): SettingsService['appTheme'] {
   return useSettingsStore(state => state.appTheme);
+}
+export function useUsePreference(): SettingsService['userPreference'] {
+  return useSettingsStore(state => state.userPreference);
 }
 export function useSettingsService(): Pick<
   SettingsService,

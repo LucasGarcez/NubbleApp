@@ -7,7 +7,7 @@ import {RadioButtonItem} from './RadioButtonItem';
 
 type RadioButtonSelectorProps<ItemT extends Record<string, any>> = {
   items: ItemT[];
-  selectedItem: ItemT | null;
+  selectedItem?: ItemT | null;
   valueKey: keyof ItemT;
   labelKey: keyof ItemT;
   descriptionKey?: keyof ItemT;
@@ -28,9 +28,8 @@ export function RadioButtonSelector<ItemT extends Record<string, any>>({
   return (
     <Box>
       {items.map((item, index) => (
-        <>
+        <Box key={item[valueKey]}>
           <RadioButtonItem
-            key={item[valueKey]}
             label={item[labelKey]}
             description={descriptionKey ? item[descriptionKey] : undefined}
             onPress={() => handleOnPress(item)}
@@ -39,7 +38,7 @@ export function RadioButtonSelector<ItemT extends Record<string, any>>({
             }
           />
           {(index === 0 || index < items.length - 1) && <Divider />}
-        </>
+        </Box>
       ))}
     </Box>
   );
