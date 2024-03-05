@@ -14,7 +14,7 @@ export function MenuItem({label, onPress}: MenuItemProps) {
       alignItems="center"
       paddingVertical="s16"
       justifyContent="space-between">
-      <Text>{label}</Text>
+      <Text semiBold>{label}</Text>
       <Icon name="chevronRight" />
     </PressableBox>
   );
