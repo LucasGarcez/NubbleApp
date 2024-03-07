@@ -1,12 +1,12 @@
 import {ColorSchemeName} from 'react-native';
 
-export type AppTheme = 'light' | 'dark';
+export type AppColorScheme = 'light' | 'dark';
 
-export type ThemePreference = AppTheme | 'system';
+export type ThemePreference = AppColorScheme | 'system';
 
 export type SettingsStore = {
-  appTheme: AppTheme;
+  appColor: AppColorScheme;
   themePreference: ThemePreference;
   setThemePreference: (themePreference: ThemePreference) => void;
-  onThemeChange: (color: ColorSchemeName) => void;
+  onSystemChange: (color: ColorSchemeName) => void;
 };

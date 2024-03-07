@@ -30,6 +30,11 @@ export const theme = createTheme({
   },
 });
 
+export const darkTheme = {
+  ...theme,
+  colors: colors.darkTheme,
+};
+
 export const $shadowProps: ViewStyle = {
   elevation: 10,
   shadowColor: '#000',
