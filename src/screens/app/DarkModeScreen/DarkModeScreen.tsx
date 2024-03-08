@@ -1,11 +1,13 @@
 import React from 'react';
 
-import {useSettingsService, useThemePreference} from '@services';
+import {
+  ThemePreference,
+  useSettingsService,
+  useThemePreference,
+} from '@services';
 
 import {RadioButtonSelector, Screen} from '@components';
 import {AppScreenProps} from '@routes';
-
-type ThemePreference = 'light' | 'dark' | 'system';
 
 type Option = {
   label: string;
