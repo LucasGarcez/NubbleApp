@@ -28,7 +28,7 @@ const useSearchHistoryStore = create<SearchHistoryService>()(
       },
     }),
     {
-      name: '@SearchHistory',
+      name: '@Settings',
       storage: storage,
     },
   ),
