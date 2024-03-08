@@ -27,7 +27,7 @@ const useSettingsStore = create<SettingsStore>()(
       },
     }),
     {
-      name: '@SearchHistory',
+      name: '@Settings',
       storage: storage,
     },
   ),
