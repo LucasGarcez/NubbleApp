@@ -1,27 +1,42 @@
 import React from 'react';
-import {FlatList} from 'react-native';
 
-import {Post} from '@domain';
-import {useScrollToTop} from '@react-navigation/native';
-
-import {Box, Screen, Text} from '@components';
+import {Box} from '@components';
 import {OnboardingScreenProps} from '@routes';
 
+import {BottomMenu} from './components/BottomMenu';
+import {Content} from './components/Content';
+import {ImageHeader} from './components/ImageHeder';
+import {OnboardingPage, onboardingPages} from './onboardingPages';
+
 export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) {
-  const flatListRef = React.useRef<FlatList<Post>>(null);
-  useScrollToTop(flatListRef);
+  const currentPage: OnboardingPage = onboardingPages[0];
+
+  function onPressNext() {
+    console.log('onPressNext');
+  }
+
+  function onPressSkip() {
+    console.log('onPressSkip');
+  }
 
   return (
-    <Screen flex={1}>
-      <Box flex={1} backgroundColor="error">
-        <Text>Image box</Text>
+    <Box flex={1}>
+      <Box flex={4}>
+        <ImageHeader image={currentPage.image} />
       </Box>
-      <Box flex={1} backgroundColor="success">
-        <Text>Text and content box</Text>
+      <Box flex={5} paddingHorizontal="s16">
+        <Content {...currentPage} />
       </Box>
-      <Box flex={1} backgroundColor="carrotSecondary">
-        <Text>Menu box</Text>
+      <Box flex={1} paddingHorizontal="s16">
+        <BottomMenu onPressNext={onPressNext} onPressSkip={onPressSkip} />
       </Box>
-    </Screen>
+    </Box>
   );
 }
+
+/**
+ *
+ *
+ * 1) Pensar na estrutura de flexbox da Tela!  com as cores
+ * 2) Componente básico de Imagem, Content e Bottom Menu
+ */
