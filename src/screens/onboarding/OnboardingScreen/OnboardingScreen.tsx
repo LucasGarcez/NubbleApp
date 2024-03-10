@@ -20,7 +20,7 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} backgroundColor="background">
       <Box flex={4}>
         <ImageHeader image={currentPage.image} />
       </Box>
