@@ -1,17 +1,18 @@
 import React from 'react';
 
-import {Box, Text} from '@components';
+import {Box, ProgressIndicator, Text} from '@components';
 
-import {OnboardingPage} from '../onboardingPages';
+import {OnboardingPageType} from '../onboardingPages';
 
-type ContentProps = Omit<OnboardingPage, 'image'>;
-export function Content({title, subtitle}: ContentProps) {
+type ContentProps = Omit<OnboardingPageType, 'image'>;
+export function Content({title, subtitle, total, index}: ContentProps) {
   return (
     <Box>
+      <ProgressIndicator pages={total} currentPage={index} mt="s48" mb="s24" />
       <Text preset="headingLarge">
-        {title.map((text, index) => (
+        {title.map((text, _index) => (
           <Text
-            key={index}
+            key={_index}
             preset="headingLarge"
             color={text.highlight ? 'carrotSecondary' : 'backgroundContrast'}>
             {text.text}

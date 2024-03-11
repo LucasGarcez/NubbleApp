@@ -7,7 +7,7 @@ export type RichText = {
   highlight: boolean;
 };
 
-export type OnboardingPage = {
+export type OnboardingPageType = {
   image: {
     light: ImageProps['source'];
     dark: ImageProps['source'];
@@ -18,7 +18,7 @@ export type OnboardingPage = {
   total: number;
 };
 
-type OnboardingPageWithoutMeta = Omit<OnboardingPage, 'index' | 'total'>;
+type OnboardingPageWithoutMeta = Omit<OnboardingPageType, 'index' | 'total'>;
 
 const page1: OnboardingPageWithoutMeta = {
   image: {
@@ -58,6 +58,6 @@ const page3: OnboardingPageWithoutMeta = {
   subtitle: 'Curta, comente e favorite os conteúdos que você mais gostar',
 };
 
-export const onboardingPages: OnboardingPage[] = [page1, page2, page3].map(
+export const onboardingPages: OnboardingPageType[] = [page1, page2, page3].map(
   (page, index, array) => ({...page, index, total: array.length}),
 );

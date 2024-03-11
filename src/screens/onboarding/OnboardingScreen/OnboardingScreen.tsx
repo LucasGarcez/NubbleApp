@@ -1,35 +1,53 @@
 import React from 'react';
+import {FlatList} from 'react-native';
 
 import {Box} from '@components';
 import {OnboardingScreenProps} from '@routes';
 
-import {BottomMenu} from './components/BottomMenu';
-import {Content} from './components/Content';
-import {ImageHeader} from './components/ImageHeder';
-import {OnboardingPage, onboardingPages} from './onboardingPages';
+import {OnboardingPage} from './components/OnboardingPage';
+import {OnboardingPageType, onboardingPages} from './onboardingPages';
+
+const LAST_PAGE = onboardingPages.length - 1;
 
 export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) {
-  const currentPage: OnboardingPage = onboardingPages[0];
+  const [pageIndex, setPageIndex] = React.useState(0);
+  const flatRef = React.useRef<FlatList<OnboardingPageType>>(null);
 
   function onPressNext() {
-    console.log('onPressNext');
+    if (pageIndex === LAST_PAGE) {
+      handleFinishOnboarding();
+    } else {
+      const newIndex = pageIndex + 1;
+      setPageIndex(newIndex);
+      flatRef.current?.scrollToIndex({index: newIndex, animated: true});
+    }
   }
 
-  function onPressSkip() {
-    console.log('onPressSkip');
+  function handleFinishOnboarding() {
+    // TODO: Implementar
+    console.log('Finish Onboarding');
+  }
+
+  function renderItem({item}: {item: OnboardingPageType}) {
+    return (
+      <OnboardingPage
+        currentPage={item}
+        onPressNext={onPressNext}
+        onPressSkip={handleFinishOnboarding}
+      />
+    );
   }
 
   return (
-    <Box flex={1} backgroundColor="background">
-      <Box flex={4}>
-        <ImageHeader image={currentPage.image} />
-      </Box>
-      <Box flex={5} paddingHorizontal="s16">
-        <Content {...currentPage} />
-      </Box>
-      <Box flex={1} paddingHorizontal="s16">
-        <BottomMenu onPressNext={onPressNext} onPressSkip={onPressSkip} />
-      </Box>
+    <Box flex={1}>
+      <FlatList
+        ref={flatRef}
+        data={onboardingPages}
+        horizontal
+        scrollEnabled={false}
+        renderItem={renderItem}
+        keyExtractor={item => item.index.toString()}
+      />
     </Box>
   );
 }
