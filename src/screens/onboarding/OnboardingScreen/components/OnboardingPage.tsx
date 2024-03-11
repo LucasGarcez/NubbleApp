@@ -30,7 +30,7 @@ export function OnboardingPage({
       <Box flex={5} paddingHorizontal="s16">
         <Content {...currentPage} />
       </Box>
-      <Box flex={1} paddingHorizontal="s16">
+      <Box flex={1} paddingHorizontal="s16" justifyContent="center">
         <BottomMenu
           onPressNext={onPressNext}
           onPressSkip={onPressSkip}

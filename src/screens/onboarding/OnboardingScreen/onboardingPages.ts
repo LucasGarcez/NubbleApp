@@ -26,7 +26,7 @@ const page1: OnboardingPageWithoutMeta = {
     dark: images.onboardingDark1,
   },
   title: [
-    {text: 'Uma  rede social de', highlight: false},
+    {text: 'Uma rede social de', highlight: false},
     {text: '\nconexões reais', highlight: true},
   ],
   subtitle:

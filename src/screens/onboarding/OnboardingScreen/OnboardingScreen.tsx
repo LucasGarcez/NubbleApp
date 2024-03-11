@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import {Box} from '@components';
+import {useAppSafeArea} from '@hooks';
 import {OnboardingScreenProps} from '@routes';
 
 import {OnboardingPage} from './components/OnboardingPage';
@@ -12,6 +13,8 @@ const LAST_PAGE = onboardingPages.length - 1;
 export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) {
   const [pageIndex, setPageIndex] = React.useState(0);
   const flatRef = React.useRef<FlatList<OnboardingPageType>>(null);
+
+  const {bottom} = useAppSafeArea();
 
   function onPressNext() {
     if (pageIndex === LAST_PAGE) {
@@ -39,8 +42,9 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} style={{paddingBottom: bottom}} backgroundColor="background">
       <FlatList
+        showsHorizontalScrollIndicator={false}
         ref={flatRef}
         data={onboardingPages}
         horizontal
