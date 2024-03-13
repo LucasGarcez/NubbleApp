@@ -1,6 +1,8 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
+import {useSettingsService} from '@services';
+
 import {Box} from '@components';
 import {useAppSafeArea} from '@hooks';
 import {OnboardingScreenProps} from '@routes';
@@ -14,11 +16,13 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
   const [pageIndex, setPageIndex] = React.useState(0);
   const flatRef = React.useRef<FlatList<OnboardingPageType>>(null);
 
+  const {finishOnboarding} = useSettingsService();
+
   const {bottom} = useAppSafeArea();
 
   function onPressNext() {
     if (pageIndex === LAST_PAGE) {
-      handleFinishOnboarding();
+      finishOnboarding();
     } else {
       const newIndex = pageIndex + 1;
       setPageIndex(newIndex);
@@ -26,17 +30,12 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
     }
   }
 
-  function handleFinishOnboarding() {
-    // TODO: Implementar
-    console.log('Finish Onboarding');
-  }
-
   function renderItem({item}: {item: OnboardingPageType}) {
     return (
       <OnboardingPage
         currentPage={item}
         onPressNext={onPressNext}
-        onPressSkip={handleFinishOnboarding}
+        onPressSkip={finishOnboarding}
       />
     );
   }
