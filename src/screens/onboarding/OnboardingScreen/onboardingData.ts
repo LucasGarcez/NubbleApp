@@ -3,7 +3,7 @@ import {ImageProps} from 'react-native';
 import {images} from '@assets';
 
 export type OnboardingPageItem = {
-  title: string;
+  title: Array<{text: string; highlight: boolean}>;
   subtitle: string;
   image: {
     light: ImageProps['source'];
@@ -12,7 +12,10 @@ export type OnboardingPageItem = {
 };
 
 const page1: OnboardingPageItem = {
-  title: 'Uma rede social de conexões reais',
+  title: [
+    {text: 'Uma rede social de', highlight: false},
+    {text: '\nconexões reais', highlight: true},
+  ],
   subtitle:
     'Fique por dentro do que acontece com as pessoas que você mais gosta',
   image: {
@@ -21,7 +24,11 @@ const page1: OnboardingPageItem = {
   },
 };
 const page2: OnboardingPageItem = {
-  title: 'Compartilhe suas histórias com seus amigos próximos',
+  title: [
+    {text: 'Compartilhe suas', highlight: false},
+    {text: '\nhistórias', highlight: true},
+    {text: ' com seus amigos próximos', highlight: false},
+  ],
   subtitle: 'Tenha sua linha do tempo personalizada',
   image: {
     light: images.onboardingLight2,
@@ -30,7 +37,10 @@ const page2: OnboardingPageItem = {
 };
 
 const page3: OnboardingPageItem = {
-  title: 'Interaja em tempo real com as pessoas',
+  title: [
+    {text: 'Interaja', highlight: true},
+    {text: ' em tempo real com as pessoas', highlight: false},
+  ],
   subtitle: 'Curta, comente e favorite os conteúdos que você mais gostar',
   image: {
     light: images.onboardingLight3,
