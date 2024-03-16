@@ -30,7 +30,11 @@ export function OnboardingPage({
         <Content {...pageItem} />
       </Box>
       <Box flex={1} paddingHorizontal="s24">
-        <BottomMenu onPressNext={onPressNext} onPressSkip={onPressSkip} />
+        <BottomMenu
+          onPressNext={onPressNext}
+          onPressSkip={onPressSkip}
+          isLast={pageItem.isLast}
+        />
       </Box>
     </Box>
   );
