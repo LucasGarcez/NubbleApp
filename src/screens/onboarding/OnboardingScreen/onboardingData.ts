@@ -20,5 +20,22 @@ const page1: OnboardingPageItem = {
     dark: images.onboardingDark1,
   },
 };
+const page2: OnboardingPageItem = {
+  title: 'Compartilhe suas histórias com seus amigos próximos',
+  subtitle: 'Tenha sua linha do tempo personalizada',
+  image: {
+    light: images.onboardingLight2,
+    dark: images.onboardingDark2,
+  },
+};
 
-export const onboardingPages: OnboardingPageItem[] = [page1];
+const page3: OnboardingPageItem = {
+  title: 'Interaja em tempo real com as pessoas',
+  subtitle: 'Curta, comente e favorite os conteúdos que você mais gostar',
+  image: {
+    light: images.onboardingLight3,
+    dark: images.onboardingDark3,
+  },
+};
+
+export const onboardingPages: OnboardingPageItem[] = [page1, page2, page3];
