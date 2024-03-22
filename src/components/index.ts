@@ -16,3 +16,4 @@ export * from './ProfileUser/ProfileUser';
 export * from './PermissionManager/PermissionManager';
 export * from './Separator/Separator';
 export * from './RadioButton';
+export * from './ProgressIndicator/ProgressIndicator';
