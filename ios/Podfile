@@ -1,4 +1,5 @@
- def node_require(script)
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+def node_require(script)
    # Resolve script with node to allow for hoisting
    require Pod::Executable.execute_command('node', ['-p',
      "require.resolve(
@@ -10,7 +11,7 @@
  node_require('react-native/scripts/react_native_pods.rb')
  node_require('react-native-permissions/scripts/setup.rb')
 
-platform :ios, '13.0'
+platform :ios, '13.4'
 prepare_react_native_project!
 
 
