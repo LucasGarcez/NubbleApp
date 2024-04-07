@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - develop
+      - 28-react-native-upgrade
 
 jobs:
   pull-request-checks:
