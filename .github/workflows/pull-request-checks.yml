@@ -11,7 +11,7 @@ on:
 
 jobs:
   pull-request-checks:
-    runs-on: ubuntu-20.04
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
