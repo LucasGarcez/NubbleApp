@@ -8,7 +8,7 @@ on:
 
 jobs:
   pull-request-checks:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
