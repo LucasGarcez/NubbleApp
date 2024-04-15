@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - develop
+      - 28-react-native-upgrade
+      - 27-fix-pr-test
 
 jobs:
   pull-request-checks:
