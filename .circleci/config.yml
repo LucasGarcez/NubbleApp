@@ -1,0 +1,39 @@
+# This config was automatically generated from your source code
+# Stacks detected: cicd:github-actions:.github/workflows,deps:java:android,deps:node:.,deps:ruby:.,package_manager:yarn:,test:jest:,tool:gradle:
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  pull-request-checks:
+    # Install node dependencies and run tests
+    docker:
+      - image: cimg/node:18.20.2
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: ./test-results/
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn add jest-junit --ignore-workspace-root-check
+      - run:
+          name: Run Lint
+          command: yarn lint
+
+      - run:
+          name: Run TypeScript compiler
+          command: yarn tsc --noEmit
+      - run:
+          name: Run tests
+          command: yarn run test --ci --runInBand --reporters=default --reporters=jest-junit
+      - store_test_results:
+          path: ./test-results/
+workflows:
+  build-and-test:
+    jobs:
+      - pull-request-checks
+
+    # - deploy:
+    #     requires:
+    #       - test-node
+    #       - test-java
