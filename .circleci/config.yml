@@ -4,9 +4,10 @@ version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  test-node:
+  pull-request-checks:
     # Install node dependencies and run tests
-    executor: node/default
+    docker:
+      - image: cimg/node:18.20.2
     environment:
       JEST_JUNIT_OUTPUT_DIR: ./test-results/
     steps:
@@ -16,51 +17,22 @@ jobs:
       - run:
           command: yarn add jest-junit --ignore-workspace-root-check
       - run:
+          name: Run Lint
+          command: yarn lint
+
+      - run:
+          name: Run TypeScript compiler
+          command: yarn tsc --noEmit
+      - run:
           name: Run tests
           command: yarn run test --ci --runInBand --reporters=default --reporters=jest-junit
       - store_test_results:
           path: ./test-results/
-  test-java:
-    docker:
-      - image: cimg/openjdk:17.0
-    working_directory: ~/project/android
-    steps:
-      - checkout:
-          path: ~/project
-      - run:
-          name: Calculate cache key
-          command: |-
-            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
-                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
-      - restore_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-      - run:
-          command: ./gradlew check
-      - store_test_results:
-          path: build/test-results
-      - save_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-          paths:
-            - ~/.gradle/caches
-      - store_artifacts:
-          path: build/reports
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-      - run:
-          name: found github actions config
-          command: ':'
 workflows:
   build-and-test:
     jobs:
-      - test-node
-      - test-java
+      - pull-request-checks:
+
     # - deploy:
     #     requires:
     #       - test-node
