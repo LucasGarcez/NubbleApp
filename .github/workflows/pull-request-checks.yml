@@ -6,7 +6,7 @@ on:
       - main
       - develop
       - 28-react-native-upgrade
-      - 27-fix-pr-test
+      - 27-assets-icon-splash
 
 jobs:
   pull-request-checks:
