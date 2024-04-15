@@ -31,7 +31,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - pull-request-checks:
+      - pull-request-checks
 
     # - deploy:
     #     requires:
