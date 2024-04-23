@@ -15,7 +15,7 @@ export function EmptyList({
   refetch,
   emptyMessage = 'Não há publicações no seu feed',
   errorMessage = 'Não foi possível carregar o feed 😢',
-}: Props) {
+}: EmptyListProps) {
   let component = (
     <Text bold preset="paragraphMedium">
       {emptyMessage}
