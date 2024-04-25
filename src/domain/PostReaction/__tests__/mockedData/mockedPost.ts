@@ -30,3 +30,18 @@ export const mockedPostWithoutLike = {
   post: postWithoutLike,
   response: postWithoutLikeResponse,
 };
+
+const postWithLike: Post = {
+  ...postWithoutLike,
+  reactions: [{emojiType: 'like', postId: postWithoutLike.id}],
+};
+
+const postWithLikeResponse: PostReactionBase = {
+  ...postWithoutLikeResponse,
+  isChecked: false,
+};
+
+export const mockedPostWithLike = {
+  post: postWithLike,
+  response: postWithLikeResponse,
+};
