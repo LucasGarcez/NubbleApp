@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Post} from '@domain';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -11,6 +12,7 @@ import {
   PublishPostScreen,
   CameraScreen,
   DarkModeScreen,
+  PostDetailsScreen,
 } from '@screens';
 
 import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
@@ -31,6 +33,10 @@ export type AppStackParamList = {
     imageUri: string;
   };
   CameraScreen: undefined;
+  PostDetailsScreen: {
+    postId: number;
+    post?: Partial<Post>;
+  };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -50,6 +56,7 @@ export function AppStack({initialRouteName = 'AppTabNavigator'}: Props) {
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
       <Stack.Screen name="DarkModeScreen" component={DarkModeScreen} />
       <Stack.Screen name="PostCommentScreen" component={PostCommentScreen} />
+      <Stack.Screen name="PostDetailsScreen" component={PostDetailsScreen} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="PublishPostScreen" component={PublishPostScreen} />

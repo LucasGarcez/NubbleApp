@@ -4,11 +4,14 @@ import {Post} from '@domain';
 
 import {Box, TouchableOpacityBox, Icon, IconProps, Text} from '@components';
 
-type Props = Pick<Post, 'reactionCount' | 'commentCount' | 'favoriteCount'>;
+type Props = Pick<Post, 'reactionCount' | 'commentCount' | 'favoriteCount'> & {
+  hideCommentActions?: boolean;
+};
 export function PostActions({
   reactionCount,
   commentCount,
   favoriteCount,
+  hideCommentActions,
 }: Props) {
   function likePost() {
     //TODO: Implement like post
@@ -33,6 +36,7 @@ export function PostActions({
         }}
       />
       <Item
+        disabled={hideCommentActions}
         marked={false}
         onPress={navigateToComments}
         text={commentCount}
@@ -57,15 +61,17 @@ export function PostActions({
 interface ItemProps {
   onPress: () => void;
   marked: boolean;
+  disabled?: boolean;
   text: number;
   icon: {
     default: IconProps['name'];
     marked: IconProps['name'];
   };
 }
-function Item({onPress, icon, marked, text}: ItemProps) {
+function Item({onPress, icon, marked, text, disabled}: ItemProps) {
   return (
     <TouchableOpacityBox
+      disabled={disabled}
       flexDirection="row"
       alignItems="center"
       mr="s24"
