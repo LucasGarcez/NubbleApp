@@ -25,7 +25,12 @@ export function FavoriteScreen({}: AppTabScreenProps<'FavoriteScreen'>) {
       <PressableBox
         onPress={
           // If it is just one line, it isn't worth extracting to a function
-          () => navigation.navigate('PostDetailsScreen', {postId: item.post.id})
+          () =>
+            navigation.navigate('PostCommentScreen', {
+              postId: item.post.id,
+              postAuthorId: item.author.id,
+              showPost: true,
+            })
         }>
         <Image
           source={{uri: item.post.imageURL}}
