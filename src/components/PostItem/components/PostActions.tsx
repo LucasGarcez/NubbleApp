@@ -4,15 +4,11 @@ import {Post} from '@domain';
 
 import {Box, TouchableOpacityBox, Icon, IconProps, Text} from '@components';
 
-type Props = Pick<Post, 'reactionCount' | 'commentCount' | 'favoriteCount'> & {
+type Props = {
+  post: Post;
   hideCommentAction?: boolean;
 };
-export function PostActions({
-  reactionCount,
-  commentCount,
-  favoriteCount,
-  hideCommentAction,
-}: Props) {
+export function PostActions({post, hideCommentAction}: Props) {
   function likePost() {
     //TODO: Implement like post
   }
@@ -29,7 +25,7 @@ export function PostActions({
       <Item
         marked
         onPress={likePost}
-        text={reactionCount}
+        text={post.reactionCount}
         icon={{
           default: 'heart',
           marked: 'heartFill',
@@ -39,7 +35,7 @@ export function PostActions({
         disabled={hideCommentAction}
         marked={false}
         onPress={navigateToComments}
-        text={commentCount}
+        text={post.commentCount}
         icon={{
           default: 'comment',
           marked: 'comment',
@@ -48,7 +44,7 @@ export function PostActions({
       <Item
         marked={false}
         onPress={favoritePost}
-        text={favoriteCount}
+        text={post.favoriteCount}
         icon={{
           default: 'bookmark',
           marked: 'bookmarkFill',
