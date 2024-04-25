@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {Post, useReactToPost} from '@domain';
+import {QueryKeys} from '@infra';
+import {useNavigation} from '@react-navigation/native';
 
 import {Box, TouchableOpacityBox, Icon, IconProps, Text} from '@components';
 
@@ -9,11 +11,19 @@ type Props = {
   hideCommentAction?: boolean;
 };
 export function PostActions({post, hideCommentAction}: Props) {
+  const navigation = useNavigation();
   const likeReaction = useReactToPost({post, postReactionType: 'like'});
-  const favoriteReaction = useReactToPost({post, postReactionType: 'favorite'});
+  const favoriteReaction = useReactToPost({
+    post,
+    postReactionType: 'favorite',
+    queryKeys: [QueryKeys.FavoriteList],
+  });
 
   function navigateToComments() {
-    //TODO: Implement navigate to comments
+    navigation.navigate('PostCommentScreen', {
+      postId: post.id,
+      postAuthorId: post.author.id,
+    });
   }
 
   return (
