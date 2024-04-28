@@ -35,6 +35,7 @@ export function ProfilePage({userId, isMyProfile}: Props) {
   const navigation = useNavigation();
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
+    //TODO: Add image placeholder to indicate loading
     return (
       <Pressable
         onPress={() => {
@@ -60,8 +61,13 @@ export function ProfilePage({userId, isMyProfile}: Props) {
     return null;
   }
 
+  // TODO: move settings button to Screen Header
   return (
-    <Screen flex={1} noPaddingHorizontal style={$screen}>
+    <Screen
+      flex={1}
+      noPaddingHorizontal
+      style={$screen}
+      canGoBack={!isMyProfile}>
       <InfinityScrollList
         queryKey={[QueryKeys.PostList, userId]}
         getList={page => postService.getList(page, userId)}

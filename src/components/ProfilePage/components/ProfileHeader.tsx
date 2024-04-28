@@ -4,8 +4,9 @@ import {View} from 'react-native';
 import {User} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
-import {Box, Button, Icon, ProfileAvatar, Text} from '@components';
+import {Box, Icon, ProfileAvatar, Text} from '@components';
 
+import {MainButton} from './MainButton';
 import {ProfileMetadata} from './ProfileMetadata';
 
 type Props = {
@@ -14,20 +15,6 @@ type Props = {
 };
 export function ProfileHeader({user, isMyProfile}: Props) {
   const navigation = useNavigation();
-
-  function renderMainButton() {
-    if (isMyProfile) {
-      return (
-        <Button
-          mt="s24"
-          preset="gray"
-          title="Editar Perfil"
-          onPress={() => navigation.navigate('SettingsScreen')}
-        />
-      );
-    }
-    return null;
-  }
 
   return (
     <Box paddingHorizontal="s24" mb="s32">
@@ -59,7 +46,7 @@ export function ProfileHeader({user, isMyProfile}: Props) {
           publicationCount={102}
         />
 
-        {renderMainButton()}
+        <MainButton isFollowing={false} isMyProfile={isMyProfile} />
       </View>
     </Box>
   );
