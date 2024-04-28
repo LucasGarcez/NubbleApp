@@ -9,7 +9,7 @@ import {EmptyList, EmptyListProps} from './components/EmptyList';
 type ItemTConstraints = {id: number | string};
 
 type Props<ItemT extends ItemTConstraints> = {
-  queryKey: QueryKeys;
+  queryKey: QueryKeys | Parameters<typeof usePaginatedList<ItemT>>[0];
   getList: Parameters<typeof usePaginatedList<ItemT>>[1];
   renderItem: FlatListProps<ItemT>['renderItem'];
   flatListProps?: Omit<Partial<FlatListProps<ItemT>>, 'renderItem'>;
