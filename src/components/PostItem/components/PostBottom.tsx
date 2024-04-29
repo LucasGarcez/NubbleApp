@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {Post} from '@domain';
-import {useNavigation} from '@react-navigation/native';
 
 import {Box, Text} from '@components';
+import {useAppCustomNavigation} from '@hooks';
 
 type Props = Pick<Post, 'author' | 'text' | 'commentCount' | 'id'> & {
   hideCommentAction?: boolean;
@@ -16,12 +16,12 @@ export function PostBottom({
   id,
   hideCommentAction,
 }: Props) {
-  const navigation = useNavigation();
+  const navigate = useAppCustomNavigation();
 
   const commentText = hideCommentAction ? null : getCommentText(commentCount);
 
   function navigateToPostCommentScreen() {
-    navigation.navigate('PostCommentScreen', {
+    navigate.toPostComment({
       postId: id,
       postAuthorId: author.id,
     });

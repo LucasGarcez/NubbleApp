@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 
-import {useNavigateToProfile} from '@hooks';
+import {useAppCustomNavigation} from '@hooks';
 
 export interface ProfileAvatarProps {
   imageURL: string;
@@ -18,11 +18,11 @@ export function ProfileAvatar({
   borderRadius = 14,
   authorId,
 }: ProfileAvatarProps) {
-  const navigateToProfile = useNavigateToProfile();
+  const navigate = useAppCustomNavigation();
 
   function handlePress() {
     if (authorId) {
-      navigateToProfile(authorId);
+      navigate.toProfile(authorId);
     }
   }
   return (

@@ -11,7 +11,7 @@ import {
   ProfileAvatarProps,
   Box,
 } from '@components';
-import {useNavigateToProfile} from '@hooks';
+import {useAppCustomNavigation} from '@hooks';
 
 type ProfileUserProps = {
   user: Pick<User, 'username' | 'profileUrl' | 'id'>;
@@ -25,13 +25,13 @@ export function ProfileUser({
   onPress,
   ...pressableBoxProps
 }: ProfileUserProps) {
-  const navigateToProfile = useNavigateToProfile();
+  const navigate = useAppCustomNavigation();
 
   function handleOnPress(event: GestureResponderEvent) {
     if (onPress) {
       onPress(event);
     }
-    navigateToProfile(user.id);
+    navigate.toProfile(user.id);
   }
 
   return (

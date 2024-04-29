@@ -10,9 +10,9 @@ import {
 
 import {Post, postService, useUserGetById} from '@domain';
 import {QueryKeys} from '@infra';
-import {useNavigation} from '@react-navigation/native';
 
 import {InfinityScrollList, Screen} from '@components';
+import {useAppCustomNavigation} from '@hooks';
 
 import {ProfileHeader} from './components/ProfileHeader';
 
@@ -33,7 +33,7 @@ type Props = {
 export function ProfilePage({userId, isMyProfile}: Props) {
   const {user} = useUserGetById(userId);
   const [postCount, setPostCount] = useState<number>();
-  const navigation = useNavigation();
+  const navigate = useAppCustomNavigation();
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
     //TODO: Add image placeholder to indicate loading
@@ -41,10 +41,9 @@ export function ProfilePage({userId, isMyProfile}: Props) {
       <Pressable
         onPress={() => {
           console.log({item});
-          navigation.navigate('PostCommentScreen', {
+          navigate.toPostDetails({
             postId: item.id,
             postAuthorId: item.author.id,
-            showPost: true,
           });
         }}>
         <Image
@@ -75,6 +74,7 @@ export function ProfilePage({userId, isMyProfile}: Props) {
   }
 
   // TODO: move settings button to Screen Header
+  // TODO: Move Screen to screen level and move settings to header
   return (
     <Screen
       flex={1}
