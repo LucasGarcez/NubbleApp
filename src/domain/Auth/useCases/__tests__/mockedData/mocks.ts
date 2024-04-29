@@ -13,5 +13,9 @@ export const mockedAuthCredentials: AuthCredentials = {
     profileUrl: 'fake-url',
     isOnline: false,
     fullName: 'Maria Julia',
+    meta: {
+      followingCount: '0',
+      followersCount: '0',
+    },
   },
 };

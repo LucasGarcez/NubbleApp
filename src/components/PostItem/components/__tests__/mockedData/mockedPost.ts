@@ -10,7 +10,7 @@ export const mockedPost: Post = {
   author: {
     id: 2,
     name: 'Maria Julia',
-    profileURL: 'https://example.com',
+    profileUrl: 'https://example.com',
     userName: 'mariajulia',
   },
   reactions: [],

@@ -3,22 +3,22 @@ import React, {useMemo} from 'react';
 import {Box, Text} from '@components';
 
 type Props = {
-  publicationCount: number;
-  followerCount: number;
-  followingCount: number;
+  followersCount: string;
+  followingCount: string;
+  publicationCount?: string;
 };
 export function ProfileMetadata({
-  followerCount,
+  followersCount,
   followingCount,
-  publicationCount,
+  publicationCount = ' ',
 }: Props) {
   const items: ItemType[] = useMemo(
     () => [
       {value: publicationCount.toString(), label: 'Publicações'},
-      {value: followerCount.toString(), label: 'Seguidores'},
+      {value: followersCount.toString(), label: 'Seguidores'},
       {value: followingCount.toString(), label: 'Seguindo'},
     ],
-    [followerCount, followingCount, publicationCount],
+    [followersCount, followingCount, publicationCount],
   );
 
   return (

@@ -19,7 +19,7 @@ export function PostItem({post, hideCommentAction}: Props) {
         user={{
           id: post.author.id,
           username: post.author.userName,
-          profileUrl: post.author.profileURL,
+          profileUrl: post.author.profileUrl,
         }}
       />
       <PostImage imageURL={post.imageURL} />

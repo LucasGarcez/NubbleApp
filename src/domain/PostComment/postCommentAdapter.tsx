@@ -11,7 +11,7 @@ function toPostComment(postCommentAPI: PostCommentAPI): PostComment {
     author: {
       id: postCommentAPI.user.id,
       name: postCommentAPI.user.full_name,
-      profileURL: postCommentAPI.user.profile_url,
+      profileUrl: postCommentAPI.user.profile_url,
       userName: postCommentAPI.user.username,
     },
   };

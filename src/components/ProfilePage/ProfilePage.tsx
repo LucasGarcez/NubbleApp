@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -32,6 +32,7 @@ type Props = {
 
 export function ProfilePage({userId, isMyProfile}: Props) {
   const {user} = useUserGetById(userId);
+  const [postCount, setPostCount] = useState<number>();
   const navigation = useNavigation();
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
@@ -56,9 +57,21 @@ export function ProfilePage({userId, isMyProfile}: Props) {
 
   function renderListHeader() {
     if (user) {
-      return <ProfileHeader user={user} isMyProfile={isMyProfile} />;
+      return (
+        <ProfileHeader
+          postCount={postCount}
+          user={user}
+          isMyProfile={isMyProfile}
+        />
+      );
     }
     return null;
+  }
+
+  async function getPostList(page: number) {
+    const response = await postService.getList(page, userId);
+    setPostCount(response.meta.total);
+    return response;
   }
 
   // TODO: move settings button to Screen Header
@@ -70,7 +83,7 @@ export function ProfilePage({userId, isMyProfile}: Props) {
       canGoBack={!isMyProfile}>
       <InfinityScrollList
         queryKey={[QueryKeys.PostList, userId]}
-        getList={page => postService.getList(page, userId)}
+        getList={getPostList}
         renderItem={renderItem}
         flatListProps={{
           ListHeaderComponent: renderListHeader,

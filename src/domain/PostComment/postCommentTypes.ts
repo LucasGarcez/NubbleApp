@@ -7,7 +7,7 @@ export interface PostComment {
   createdAtRelative: string; // '1 h, 2 sem';
   author: {
     id: number; // 6;
-    profileURL: string;
+    profileUrl: string;
     name: string;
     userName: string;
   };
