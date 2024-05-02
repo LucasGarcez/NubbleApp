@@ -27,16 +27,21 @@ const mainButtonVariants: Record<
 type MainButtonProps = {
   isMyProfile?: boolean;
   isFollowing?: boolean;
+  userId: number;
 };
 
-export function MainButton({isFollowing, isMyProfile}: MainButtonProps) {
+export function MainButton({
+  isFollowing,
+  isMyProfile,
+  userId,
+}: MainButtonProps) {
   const navigation = useNavigation();
   const buttonProps =
     mainButtonVariants[getVariant({isMyProfile, isFollowing})];
 
   function handleOnPress() {
     if (isMyProfile) {
-      navigation.navigate('SettingsScreen');
+      navigation.navigate('EditProfileScreen', {userId});
     } else if (isFollowing) {
       // TODO: change UI to have two buttons (message and unfollow)
     }

@@ -30,6 +30,8 @@ type Props = {
   isMyProfile?: boolean;
 };
 
+//TODO: render settings page even when has error
+// maybe add a button to the error screen to navigate to settings
 export function ProfilePage({userId, isMyProfile}: Props) {
   const {user} = useUserGetById(userId);
   const [postCount, setPostCount] = useState<number>();

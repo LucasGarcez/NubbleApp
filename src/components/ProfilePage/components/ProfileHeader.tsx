@@ -47,7 +47,11 @@ export function ProfileHeader({user, postCount, isMyProfile}: Props) {
           publicationCount={postCount?.toString()}
         />
 
-        <MainButton isFollowing={false} isMyProfile={isMyProfile} />
+        <MainButton
+          userId={user.id}
+          isFollowing={false}
+          isMyProfile={isMyProfile}
+        />
       </View>
     </Box>
   );
