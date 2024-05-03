@@ -27,3 +27,9 @@ export interface UserAPI {
     followers_count: string;
   };
 }
+
+export type EditUserParams = {
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+};

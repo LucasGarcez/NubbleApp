@@ -1,6 +1,6 @@
 import {api, PageAPI} from '@api';
 
-import {UserAPI} from './userTypes';
+import {EditUserParams, UserAPI} from './userTypes';
 
 export const USER_PATH = 'users';
 
@@ -16,9 +16,13 @@ async function getList(search: string): Promise<PageAPI<UserAPI>> {
   return response.data;
 }
 
-// async function editUser(userApi: UserAPI<> )
+async function editUser(params: EditUserParams): Promise<UserAPI> {
+  const response = await api.put<UserAPI>(`${USER_PATH}`, params);
+  return response.data;
+}
 
 export const userApi = {
   getById,
   getList,
+  editUser,
 };
