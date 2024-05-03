@@ -16,6 +16,8 @@ async function getList(search: string): Promise<PageAPI<UserAPI>> {
   return response.data;
 }
 
+// async function editUser(userApi: UserAPI<> )
+
 export const userApi = {
   getById,
   getList,

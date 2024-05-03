@@ -7,6 +7,11 @@ function tryAxiosError(error: unknown): string | null {
   if (axios.isAxiosError(error)) {
     const response = error.response;
 
+    // Check if the response has a message property
+    if (response && response.data && response.data.message) {
+      return response.data.message;
+    }
+
     // Check if the response and the data.errors array exists
     if (response && response.data && Array.isArray(response.data.errors)) {
       // Map through the errors array and join messages into a single string
