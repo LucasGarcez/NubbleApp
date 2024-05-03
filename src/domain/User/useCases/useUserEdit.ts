@@ -1,10 +1,11 @@
-import {MutationOptions} from '@infra';
-import {useMutation} from '@tanstack/react-query';
+import {MutationOptions, QueryKeys} from '@infra';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {errorUtils} from '@utils';
 
 import {EditUserParams, User, userService} from '..';
 
 export function useUserEdit(options?: MutationOptions<User>) {
+  const queryClient = useQueryClient();
   const {mutate, isLoading} = useMutation<User, unknown, EditUserParams>({
     mutationFn: params => userService.editUser(params),
     retry: false,
@@ -15,6 +16,7 @@ export function useUserEdit(options?: MutationOptions<User>) {
       }
     },
     onSuccess: user => {
+      queryClient.invalidateQueries([QueryKeys.UserGetById, user.id]);
       if (options?.onSuccess) {
         options?.onSuccess(user);
       }
