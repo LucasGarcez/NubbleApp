@@ -1,7 +1,8 @@
+import {zodTypes} from '@form';
 import {z} from 'zod';
 
 export const forgotPasswordSchema = z.object({
-  email: z.string().email('email inválido'),
+  email: zodTypes.email,
 });
 
 export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;

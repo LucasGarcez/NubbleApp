@@ -1,7 +1,8 @@
+import {zodTypes} from '@form';
 import {z} from 'zod';
 
 export const loginSchema = z.object({
-  email: z.string().email('email inválido'),
+  email: zodTypes.email,
   password: z.string().min(1, 'senha obrigatória'),
 });
 
