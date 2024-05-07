@@ -1,12 +1,13 @@
 import React, {useImperativeHandle} from 'react';
 import {View} from 'react-native';
 
-import {User, useUserEdit, userService} from '@domain';
+import {User, authService, useUserEdit, userService} from '@domain';
+import {useAsyncValidation} from '@form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
-import {FormTextInput} from '@components';
+import {ActivityIndicator, FormTextInput} from '@components';
 
 import {EditProfileSchema, editProfileSchema} from './editProfileSchema';
 
@@ -37,15 +38,16 @@ export const EditProfileForm = React.forwardRef<
     },
   });
 
-  const {control, handleSubmit} = useForm<EditProfileSchema>({
-    resolver: zodResolver(editProfileSchema),
-    defaultValues: {
-      firstName: props.user.firstName,
-      lastName: props.user.lastName,
-      username: props.user.username,
-    },
-    mode: 'onChange',
-  });
+  const {control, handleSubmit, watch, getFieldState} =
+    useForm<EditProfileSchema>({
+      resolver: zodResolver(editProfileSchema),
+      defaultValues: {
+        firstName: props.user.firstName,
+        lastName: props.user.lastName,
+        username: props.user.username,
+      },
+      mode: 'onChange',
+    });
 
   useImperativeHandle(ref, () => ({
     submitForm: () => {
@@ -55,12 +57,13 @@ export const EditProfileForm = React.forwardRef<
     },
   }));
 
-  // useEffect(() => {
-  //   props.onFormStateChange({
-  //     isLoading,
-  //     isValid: formState.isValid,
-  //   });
-  // }, [formState.isValid, isLoading, props, props.onFormStateChange]);
+  const usernameValidation = useAsyncValidation({
+    watch,
+    getFieldState,
+    asyncValidateFunc: authService.isUserNameAvailable,
+    fieldName: 'username',
+    errorMessage: 'username indisponível',
+  });
 
   return (
     <View>
@@ -69,13 +72,13 @@ export const EditProfileForm = React.forwardRef<
         name="username"
         label="Seu username"
         placeholder="@"
-        // errorMessage={usernameValidation.errorMessage}
+        errorMessage={usernameValidation.errorMessage}
         boxProps={{mb: 's20'}}
-        // RightComponent={
-        //   usernameValidation.isFetching ? (
-        //     <ActivityIndicator size="small" />
-        //   ) : undefined
-        // }
+        RightComponent={
+          usernameValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormTextInput
