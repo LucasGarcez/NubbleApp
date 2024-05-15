@@ -1,4 +1,4 @@
-package com.nubbleapp;
+package br.com.coffstack.nubble;
 import expo.modules.ReactActivityDelegateWrapper
 
 import com.facebook.react.ReactActivity
