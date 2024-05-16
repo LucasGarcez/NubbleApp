@@ -91,9 +91,9 @@ android {
         }
         release {
             storeFile file('upload.jks')
-            storePassword 'upload'
-            keyAlias 'upload'
-            keyPassword 'upload'
+            storePassword System.getenv('NUBBLE_STORE_PASSWORD')
+            keyAlias System.getenv('NUBBLE_ALIAS_PASSWORD')
+            keyPassword System.getenv('NUBBLE_KEY_PASSWORD')
         }
     }
     buildTypes {
