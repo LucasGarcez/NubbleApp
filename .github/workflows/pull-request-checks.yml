@@ -28,5 +28,8 @@ jobs:
       - name: Run TypeScript compiler
         run: yarn tsc --noEmit
 
+      - name: Node version
+        run: node --version
+
       - name: Run test
         run: yarn test
