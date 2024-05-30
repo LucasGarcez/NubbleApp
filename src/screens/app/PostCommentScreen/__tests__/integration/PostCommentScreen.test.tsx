@@ -31,7 +31,7 @@ afterAll(() => {
 });
 
 describe('integration: PostCommentScreen', () => {
-  test.skip('When ADDING a comment, the list is automatically updated', async () => {
+  test('When ADDING a comment, the list is automatically updated', async () => {
     renderScreen(
       <PostCommentScreen
         navigation={{} as any}
