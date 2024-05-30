@@ -25,3 +25,15 @@ jobs:
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '17'
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Decode Keystore
+        run: echo ${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }} | base64 -d > app/upload.jks
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
