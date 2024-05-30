@@ -37,3 +37,7 @@ jobs:
 
       - name: Build APK
         run: ./gradlew assembleRelease
+        env:
+          NUBBLE_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          NUBBLE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          NUBBLE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
