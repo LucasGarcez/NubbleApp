@@ -1,5 +1,8 @@
 name: Build Staging (Android)
 
+env:
+  APK_PATH: android/app/build/outputs/apk/release/app-release.apk
+
 on:
   workflow_dispatch:
 
@@ -41,3 +44,10 @@ jobs:
           NUBBLE_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
           NUBBLE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           NUBBLE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
+      - name: Upload APK to Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-relase.apk
+          path: ${{env.APK_PATH}}
+          retention-days: 7
