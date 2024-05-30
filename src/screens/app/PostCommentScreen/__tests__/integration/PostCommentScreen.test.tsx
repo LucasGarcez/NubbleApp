@@ -32,7 +32,6 @@ afterAll(() => {
 
 describe('integration: PostCommentScreen', () => {
   test('When ADDING a comment, the list is automatically updated', async () => {
-    console.time('Rendering screen');
     renderScreen(
       <PostCommentScreen
         navigation={{} as any}
@@ -47,38 +46,24 @@ describe('integration: PostCommentScreen', () => {
       />,
     );
 
-    console.timeEnd('Rendering screen');
-
-    console.time('findByText:comentario');
     const comment = await screen.findByText(/comentário aleatório/i);
-    console.timeEnd('findByText:comentario');
 
     expect(comment).toBeTruthy();
 
     // achar o campo de input
-    console.time('Finding input text');
     const inputText = screen.getByPlaceholderText(/Adicione um comentário/i);
-    console.timeEnd('Finding input text');
 
     // digitar a mensagem
-    console.time('Changing text');
     fireEvent.changeText(inputText, 'novo comentário');
-    console.timeEnd('Changing text');
 
     // clicar em enviar
-    console.time('Pressing send');
     fireEvent.press(screen.getByText(/enviar/i));
-    console.timeEnd('Pressing send');
 
     //espera: a lista atualizada com o novo comentário
-    console.time('Finding new comment');
     const newComment = await screen.findByText(/novo comentário/i);
-    console.timeEnd('Finding new comment');
     expect(newComment).toBeTruthy();
 
-    console.time('Finding all comments');
     const comments = await screen.findAllByTestId('post-comment-id');
-    console.timeEnd('Finding all comments');
 
     expect(comments.length).toBe(3);
   });
