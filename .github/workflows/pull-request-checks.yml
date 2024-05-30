@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18.20.2'
+          node-version: '18'
 
       - name: Install Packages
         run: yarn install
@@ -27,9 +27,6 @@ jobs:
 
       - name: Run TypeScript compiler
         run: yarn tsc --noEmit
-
-      - name: Node version
-        run: node --version
 
       - name: Run test
         run: yarn test
