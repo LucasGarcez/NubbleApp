@@ -79,8 +79,8 @@ android {
         applicationId "br.com.coffstack.nubble"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.1"
     }
     signingConfigs {
         debug {

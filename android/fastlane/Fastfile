@@ -20,10 +20,15 @@ platform :android do
 
 
   desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :build_release do
+  lane :build_bundle_internal do
     gradle(
       task: 'bundle',
        build_type:'release' 
+    )
+
+    upload_to_play_store(
+      track: 'internal',
+      skip_upload_apk: true
     )
     
   end
