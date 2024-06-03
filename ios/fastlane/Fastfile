@@ -18,6 +18,13 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APPLE_KEY_ID"],
+      issuer_id: ENV["APPLE_KEY_ISSUER_ID"],
+      key_content: ENV["APPLE_KEY_CONTENT"]
+    )
+
     build_app(
       workspace: "NubbleApp.xcworkspace", 
       scheme: "NubbleApp",
