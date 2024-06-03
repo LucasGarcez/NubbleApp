@@ -18,8 +18,16 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "NubbleApp.xcodeproj")
-    build_app(workspace: "NubbleApp.xcworkspace", scheme: "NubbleApp")
-    upload_to_testflight
+    build_app(
+      workspace: "NubbleApp.xcworkspace", 
+      scheme: "NubbleApp",
+      export_options: {
+        provisioningProfiles: {
+          "br.com.coffstack.nubble" => "Distribution br.com.coffstack.nubble"
+        }
+      }
+    )
+    
+    upload_to_testflight(api_key: api_key, skip_waiting_for_build_processing: true)
   end
 end
