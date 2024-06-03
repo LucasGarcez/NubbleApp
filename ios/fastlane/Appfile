@@ -1,0 +1,8 @@
+app_identifier("br.com.coffstack.nubble") # The bundle identifier of your app
+apple_id("contato@coffstack.com") # Your Apple Developer Portal username
+
+itc_team_id("127037516") # App Store Connect Team ID
+team_id("CC9SW2CA32") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
