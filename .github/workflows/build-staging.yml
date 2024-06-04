@@ -73,7 +73,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-    
+
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.CERT_REPO_SSH_KEY }}
@@ -92,7 +92,7 @@ jobs:
       - name: Install IOS dependencies
         run: pod install
 
-      -name: Build and Upload to TestFlight
+      - name: Build and Upload to TestFlight
         run: fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
