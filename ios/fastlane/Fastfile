@@ -21,6 +21,16 @@ platform :ios do
     setup_ci if ENV['CI']
   end
 
+  desc "Get development (Debug) certificate and provisioning profile"
+  lane :get_dev_cert do
+    match(type: "development", readonly: true)
+  end
+
+  desc "Get appstore (Release) certificate and provisioning profile"
+  lane :get_appstore_cert do
+    match(type: "appstore", readonly: true)
+  end
+
   desc "Push a new beta build to TestFlight"
   lane :beta do
 
