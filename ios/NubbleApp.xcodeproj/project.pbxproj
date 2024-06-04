@@ -630,7 +630,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.coffstack.nubble;
 				PRODUCT_NAME = NubbleApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Development br.com.coffstack.nubble";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development br.com.coffstack.nubble";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
