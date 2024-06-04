@@ -21,6 +21,11 @@ platform :ios do
     setup_ci if ENV['CI']
   end
 
+  desc "Update development provisioning profile"
+  lane :update_dev_profile do
+    match(type: "development", force_for_new_devices: true)
+  end
+
   desc "Get development (Debug) certificate and provisioning profile"
   lane :get_dev_cert do
     match(type: "development", readonly: true)
