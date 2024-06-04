@@ -1,4 +1,4 @@
-name: Build Staging (Android)
+name: Build Staging (Android and iOS)
 
 env:
   AAB_PATH: android/app/build/outputs/bundle/release/app-release.aab
