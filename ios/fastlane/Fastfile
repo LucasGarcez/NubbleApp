@@ -14,23 +14,32 @@
 # update_fastlane
 
 default_platform(:ios)
+skip_docs
 
 platform :ios do
+  before_all do
+    setup_ci if ENV['CI']
+  end
+
   desc "Push a new beta build to TestFlight"
   lane :beta do
 
     api_key = app_store_connect_api_key(
       key_id: ENV["APPLE_KEY_ID"],
       issuer_id: ENV["APPLE_KEY_ISSUER_ID"],
-      key_content: ENV["APPLE_KEY_CONTENT"]
+      key_content: ENV["APPLE_KEY_CONTENT"],
+      duration: 1200,
+      in_house: false
     )
+
+    match(type: "appstore", readonly: true)
 
     build_app(
       workspace: "NubbleApp.xcworkspace", 
       scheme: "NubbleApp",
       export_options: {
         provisioningProfiles: {
-          "br.com.coffstack.nubble" => "Distribution br.com.coffstack.nubble"
+          "br.com.coffstack.nubble" => "match AppStore br.com.coffstack.nubble"
         }
       }
     )
