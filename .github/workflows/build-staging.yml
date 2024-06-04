@@ -61,3 +61,37 @@ jobs:
           name: app-release.aab
           path: ${{env.AAB_PATH}}
           retention-days: 7
+
+  build-ios:
+    needs: run-checks
+    runs-on: macos-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./ios
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods -v 1.15.2
+
+      - name: Install IOS dependencies
+        run: pod install
+
+      -name: Build and Upload to TestFlight
+        run: fastlane beta
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_KEY_ISSUER_ID: ${{ secrets.APPLE_KEY_ISSUER_ID }}
+          APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
