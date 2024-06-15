@@ -20,17 +20,17 @@ jobs:
         run: ./bump-version.sh $GITHUB_REF_NAME
 
       - name: Debug environment variable
-        run: echo $BUMP_PR_BRANCH
+        run: echo "value: $BUMP_PR_BRANCH"
         env:
-          BUMP_PR_BRANCH: ${{ env.BUMP_PR_BRANCH }}
+          BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
       - name: Git checkout
         run: git checkout -b "version/$BUMP_PR_BRANCH"
         env:
-          BUMP_PR_BRANCH: ${{ env.BUMP_PR_BRANCH }}
+          BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
       - name: create pull request
         run: gh pr create -B $BUMP_PR_BRANCH -H version/$BUMP_PR_BRANCH --title "Bump version to $GITHUB_REF_NAME" --body "Created by Github action"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BUMP_PR_BRANCH: ${{ env.BUMP_PR_BRANCH }}
+          BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
