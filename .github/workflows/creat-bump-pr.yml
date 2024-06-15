@@ -4,8 +4,11 @@ on:
     tags:
       - '**'
 
+permissions:
+  pull-requests: write
+
 jobs:
-  build:
+  bump-version:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -30,7 +33,7 @@ jobs:
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
       - name: create pull request
-        run: gh pr create -B $BUMP_PR_BRANCH -H version/$BUMP_PR_BRANCH --title "Bump version to $GITHUB_REF_NAME" --body "Created by Github action"
+        run: gh pr create -B $BUMP_PR_BRANCH -H version/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by Github action"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
