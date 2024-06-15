@@ -13,14 +13,6 @@ jobs:
         with:
           ref: ${{env.BUMP_PR_BRANCH}}
 
-      - name: Set Up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install Packages
-        run: yarn install
-
       - name: Make bump-version.sh  executable
         run: chmod +x bump-version.sh
 
