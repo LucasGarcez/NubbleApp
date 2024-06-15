@@ -20,7 +20,7 @@ jobs:
         run: ./bump-version.sh $GITHUB_REF_NAME
 
       - name: Debug environment variable
-        run: echo "value: $BUMP_PR_BRANCH"
+        run: echo "value $BUMP_PR_BRANCH"
         env:
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
