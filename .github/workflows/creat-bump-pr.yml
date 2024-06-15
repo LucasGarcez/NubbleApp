@@ -10,7 +10,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        ref: ${{env.BUMP_PR_BRANCH}}
+        with:
+          ref: ${{env.BUMP_PR_BRANCH}}
 
       - name: Set Up Node
         uses: actions/setup-node@v3
