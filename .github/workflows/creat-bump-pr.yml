@@ -27,8 +27,12 @@ jobs:
         env:
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
-      - name: Git commit
-        run: git checkout -b "release/$GITHUB_REF_NAME" && git commit -a -m "bump version"
+      - name: Config Git and commit
+        run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git checkout -b "release/$GITHUB_REF_NAME"
+        git commit -a -m "bump version"
 
       - name: create pull request
         run: gh pr create -B $BUMP_PR_BRANCH -H release/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by Github action"
