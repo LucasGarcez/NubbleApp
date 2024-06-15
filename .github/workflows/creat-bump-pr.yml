@@ -27,8 +27,8 @@ jobs:
         env:
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
-      - name: Git checkout
-        run: git checkout -b "version/$BUMP_PR_BRANCH"
+      - name: Git commit
+        run: git checkout -b "version/$BUMP_PR_BRANCH" && git commit -a -m "bump version"
         env:
           BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
 
