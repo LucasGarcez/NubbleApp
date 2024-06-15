@@ -19,8 +19,11 @@ jobs:
       - name: Bum version
         run: ./bump-version.sh $GITHUB_REF_NAME
 
+      - name: Debug environment variable
+        run: echo "BUMP_PR_BRANCH=${{ env.BUMP_PR_BRANCH }}"
+
       - name: Git checkout
-        run: git checkout -b "version/${{env.BUMP_PR_BRANCH}}"
+        run: git checkout -b "version/${{ env.BUMP_PR_BRANCH }}"
 
       - name: create pull request
         run: gh pr create -B ${{env.BUMP_PR_BRANCH}} -H version/${{env.BUMP_PR_BRANCH}} --title "Bump version to ${GITHUB_REF_NAME}" --body "Created by Github action"
