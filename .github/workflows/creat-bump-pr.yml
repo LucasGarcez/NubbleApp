@@ -20,9 +20,6 @@ jobs:
       - name: Install Packages
         run: yarn install
 
-      - name: Bump release version
-        run: yarn bump:patch
-
       - name: Make bump-version.sh  executable
         run: chmod +x bump-version.sh
 
