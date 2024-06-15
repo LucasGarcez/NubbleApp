@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{env.BUMP_PR_BRANCH}}
+          ref: ${{vars.BUMP_PR_BRANCH}}
 
       - name: Make bump-version.sh  executable
         run: chmod +x bump-version.sh

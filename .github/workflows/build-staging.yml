@@ -13,7 +13,7 @@ jobs:
   run-checks:
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged == true && github.base_ref == ${{env.BUMP_PR_BRANCH}} && (startsWith(github.head_ref, 'release/')))
+      (github.event.pull_request.merged == true && github.base_ref == ${{vars.BUMP_PR_BRANCH}} && (startsWith(github.head_ref, 'release/')))
     uses: ./.github/workflows/pull-request-checks.yml
 
   build-android:
