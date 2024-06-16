@@ -35,7 +35,7 @@ jobs:
           git checkout -b "release/$GITHUB_REF_NAME"
           git add .
           git commit -m "bump version to $GITHUB_REF_NAME"
-          git push origin release/$GITHUB_REF_NAM
+          git push origin release/$GITHUB_REF_NAME
 
       - name: create pull request
         run: gh pr create -B $RELEASE_BRANCH -H release/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by GitHub Actions"
