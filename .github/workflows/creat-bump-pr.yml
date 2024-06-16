@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{vars.BUMP_PR_BRANCH}}
+          ref: ${{vars.RELEASE_BRANCH}}
 
       - name: Make bump-version.sh  executable
         run: chmod +x bump-version.sh
@@ -24,9 +24,9 @@ jobs:
         run: ./bump-version.sh $GITHUB_REF_NAME
 
       - name: Debug environment variable
-        run: echo "value $BUMP_PR_BRANCH"
+        run: echo "value $RELEASE_BRANCH"
         env:
-          BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
+          RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
 
       - name: Config Git and commit
         run: |
@@ -34,11 +34,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "release/$GITHUB_REF_NAME"
           git add .
-          git commit -m "bump version"
-          git push origin release/$GITHUB_REF_NAME
+          git commit -m "bump version to $GITHUB_REF_NAME"
+          git push origin release/$GITHUB_REF_NAM
 
       - name: create pull request
-        run: gh pr create -B $BUMP_PR_BRANCH -H release/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by GitHub Actions"
+        run: gh pr create -B $RELEASE_BRANCH -H release/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by GitHub Actions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BUMP_PR_BRANCH: ${{ vars.BUMP_PR_BRANCH }}
+          RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
