@@ -13,3 +13,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{vars.RELEASE_BRANCH}}
+
+      - name: Make bump-version.sh executable
+        run: chmod +x bump-version.sh
+
+      - name: Run bump-version.sh
+        run: ./bump-version.sh $GITHUB_REF_NAME
