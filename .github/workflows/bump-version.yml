@@ -1,0 +1,15 @@
+name: Create Pull Request to Bump Version
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{vars.RELEASE_BRANCH}}
