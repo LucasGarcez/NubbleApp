@@ -19,3 +19,12 @@ jobs:
 
       - name: Run bump-version.sh
         run: ./bump-version.sh $GITHUB_REF_NAME
+
+      - name: Git checkout, add, commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "release/$GITHUB_REF_NAME"
+          git add .
+          git commit -m "bump to version $GITHUB_REF_NAME"
+          git push origin release/$GITHUB_REF_NAME
