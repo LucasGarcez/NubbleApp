@@ -5,9 +5,15 @@ env:
 
 on:
   workflow_dispatch:
+  pull_request:
+    types:
+      - closed
 
 jobs:
   run-checks:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true && github.base_ref == vars.RELEASE_BRANCH && startsWith(github.head_ref, 'release/'))
     uses: ./.github/workflows/pull-request-checks.yml
 
   build-android:
