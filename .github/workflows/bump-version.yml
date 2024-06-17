@@ -5,6 +5,10 @@ on:
     tags:
       - '**'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   bump-version:
     runs-on: ubuntu-latest
@@ -28,3 +32,9 @@ jobs:
           git add .
           git commit -m "bump to version $GITHUB_REF_NAME"
           git push origin release/$GITHUB_REF_NAME
+
+      - name: Create Release Pull Request
+        run: gh pr create -B $RELEASE_BRANCH -H release/$GITHUB_REF_NAME --title "Bump version to $GITHUB_REF_NAME" --body "Created by GitHub Actions"
+        env:
+          RELEASE_BRANCH: ${{vars.RELEASE_BRANCH}}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
