@@ -7,6 +7,10 @@ export interface User {
   profileUrl: string; // 'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/1-maria.png';
   isOnline: boolean; // false;
   fullName: string; // 'Maria Julia';
+  meta: {
+    followingCount: string;
+    followersCount: string;
+  };
 }
 
 export interface UserAPI {
@@ -18,4 +22,8 @@ export interface UserAPI {
   profile_url: string; // 'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/1-maria.png';
   is_online: boolean; // false;
   full_name: string; // 'Maria Julia';
+  meta: {
+    following_count: string; //'3';
+    followers_count: string; // '0';
+  };
 }

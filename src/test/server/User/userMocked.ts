@@ -7,12 +7,14 @@ const user1: UserAPI = {
   last_name: 'Tavares',
   username: 'celotavares',
   email: 'celotavares@coffstack.com',
-
   profile_url:
     'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/6-marcelo.png',
   is_online: false,
-
   full_name: 'Marcelo Tavares',
+  meta: {
+    followers_count: '30',
+    following_count: '23',
+  },
 };
 
 const user2: UserAPI = {
@@ -25,6 +27,10 @@ const user2: UserAPI = {
     'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/1-maria.png',
   is_online: false,
   full_name: 'Maria Julia',
+  meta: {
+    followers_count: '30',
+    following_count: '23',
+  },
 };
 
 const userList: UserAPI[] = [user1, user2];

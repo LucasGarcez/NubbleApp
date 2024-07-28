@@ -10,8 +10,9 @@ import {ProfileMetadata} from './ProfileMetadata';
 type Props = {
   user: User;
   isMyProfile?: boolean;
+  publicationCount: string;
 };
-export function ProfileHeader({user, isMyProfile}: Props) {
+export function ProfileHeader({user, isMyProfile, publicationCount}: Props) {
   const navigation = useNavigation();
   return (
     <Box paddingHorizontal="s24">
@@ -28,9 +29,9 @@ export function ProfileHeader({user, isMyProfile}: Props) {
           @{user.username}
         </Text>
         <ProfileMetadata
-          followersCount="105"
-          followingCount="300"
-          publicationCount="34"
+          followersCount={user.meta.followersCount}
+          followingCount={user.meta.followingCount}
+          publicationCount={publicationCount}
         />
         {isMyProfile && (
           <Box position="absolute" alignSelf="flex-end">
