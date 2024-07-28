@@ -24,7 +24,7 @@ export function ProfileTemplate({userId, isMyProfile}: Props) {
     if (!user) {
       return null;
     }
-    return <ProfileHeader user={user} />;
+    return <ProfileHeader user={user} isMyProfile={isMyProfile} />;
   }
 
   const {list} = usePostList();
