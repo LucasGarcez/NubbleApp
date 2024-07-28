@@ -3,15 +3,15 @@ import {FlatList, Image, ListRenderItemInfo} from 'react-native';
 
 import {Post, usePostList, useUserGetById} from '@domain';
 
-import {Box} from '../Box/Box';
-import {ProfileAvatar} from '../ProfileAvatar/ProfileAvatar';
 import {Screen} from '../Screen/Screen';
-import {Text} from '../Text/Text';
+
+import {ProfileHeader} from './components/ProfileHeader';
 
 type Props = {
   userId: number;
+  isMyProfile?: boolean;
 };
-export function ProfileTemplate({userId}: Props) {
+export function ProfileTemplate({userId, isMyProfile}: Props) {
   const {user} = useUserGetById(userId);
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
@@ -24,19 +24,13 @@ export function ProfileTemplate({userId}: Props) {
     if (!user) {
       return null;
     }
-    return (
-      <Box>
-        <ProfileAvatar imageURL={user?.profileUrl} />
-        <Text>{user.fullName}</Text>
-        <Text>@{user.username}</Text>
-      </Box>
-    );
+    return <ProfileHeader user={user} />;
   }
 
   const {list} = usePostList();
 
   return (
-    <Screen canGoBack flex={1}>
+    <Screen canGoBack={!isMyProfile} flex={1}>
       <FlatList
         data={list}
         renderItem={renderItem}
