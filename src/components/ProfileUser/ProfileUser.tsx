@@ -43,7 +43,11 @@ export function ProfileUser({
       onPress={handleOnPress}
       {...pressableBoxProps}>
       <Box flexDirection="row" alignItems="center">
-        <ProfileAvatar {...avatarProps} imageURL={user.profileUrl} />
+        <ProfileAvatar
+          {...avatarProps}
+          imageURL={user.profileUrl}
+          authorId={user.id}
+        />
         <Text ml="s12" semiBold preset="paragraphMedium">
           {user.username}
         </Text>

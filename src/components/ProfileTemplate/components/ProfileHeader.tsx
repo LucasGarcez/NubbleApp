@@ -49,7 +49,7 @@ export function ProfileHeader({user, isMyProfile, publicationCount}: Props) {
         )}
       </Box>
 
-      <ProfileButton isMyProfile={true} isFollowing={true} />
+      <ProfileButton isMyProfile={isMyProfile} isFollowing={true} />
     </Box>
   );
 }
