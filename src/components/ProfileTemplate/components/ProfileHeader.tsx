@@ -3,8 +3,9 @@ import React from 'react';
 import {User} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
-import {BackButton, Box, Button, Icon, ProfileAvatar, Text} from '@components';
+import {BackButton, Box, Icon, ProfileAvatar, Text} from '@components';
 
+import {ProfileButton} from './ProfileButton';
 import {ProfileMetadata} from './ProfileMetadata';
 
 type Props = {
@@ -47,7 +48,8 @@ export function ProfileHeader({user, isMyProfile, publicationCount}: Props) {
           </Box>
         )}
       </Box>
-      <Button title="TO DO" marginVertical="s24" />
+
+      <ProfileButton isMyProfile={true} isFollowing={true} />
     </Box>
   );
 }
