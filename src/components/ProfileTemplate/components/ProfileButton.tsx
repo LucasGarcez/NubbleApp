@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {useNavigation} from '@react-navigation/native';
+
 import {Button, ButtonProps} from '@components';
 
 type ButtonVariants = 'myProfile' | 'isFollowing' | 'isNotFollowing';
@@ -27,11 +29,14 @@ type ProfileButtonProps = {
   isFollowing?: boolean;
 };
 export function ProfileButton({isFollowing, isMyProfile}: ProfileButtonProps) {
+  const navigation = useNavigation();
   const variant = getVariant({isFollowing, isMyProfile});
   const buttonProps = buttonVariants[variant];
 
   function handleOnPress() {
-    // TODO:
+    if (isMyProfile) {
+      navigation.navigate('EditProfileScreen');
+    }
   }
 
   return (

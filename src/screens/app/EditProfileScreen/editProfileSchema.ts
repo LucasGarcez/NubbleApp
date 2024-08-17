@@ -1,12 +1,10 @@
 import {schemaTypes} from '@form';
 import {z} from 'zod';
 
-export const signUpSchema = z.object({
+export const editProfileSchema = z.object({
   username: schemaTypes.username,
   firstName: schemaTypes.name,
   lastName: schemaTypes.name,
-  email: schemaTypes.email,
-  password: schemaTypes.password,
 });
 
-export type SignUpSchema = z.infer<typeof signUpSchema>;
+export type EditProfileSchema = z.infer<typeof editProfileSchema>;
