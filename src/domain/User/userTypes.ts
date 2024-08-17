@@ -13,6 +13,10 @@ export interface User {
   };
 }
 
+export interface UserDetails extends User {
+  isFollowing: boolean;
+}
+
 export interface UserAPI {
   id: number; // 1;
   first_name: string; // 'Maria';
