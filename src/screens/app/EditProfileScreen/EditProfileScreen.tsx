@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {useUserGetById} from '@domain';
 
@@ -12,6 +12,7 @@ export function EditProfileScreen({
   route,
 }: AppScreenProps<'EditProfileScreen'>) {
   const {user} = useUserGetById(route.params.userId);
+  const [formIsValid, setFormIsValid] = useState(false);
 
   function submitForm() {
     //TODO:
@@ -19,9 +20,14 @@ export function EditProfileScreen({
   return (
     <Screen canGoBack scrollable title="Editar Perfil">
       <EditProfileHeader user={user} />
-      {user && <EditProfileForm user={user} />}
+      {user && <EditProfileForm user={user} onChangeIsValid={setFormIsValid} />}
 
-      <Button mt="s40" title="Salvar Alterações" onPress={submitForm} />
+      <Button
+        mt="s40"
+        title="Salvar Alterações"
+        onPress={submitForm}
+        disabled={!formIsValid}
+      />
     </Screen>
   );
 }
