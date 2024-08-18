@@ -1,6 +1,6 @@
 import {api, PageAPI} from '@api';
 
-import {UserAPI} from './userTypes';
+import {UpdateUserParams, UserAPI} from './userTypes';
 
 export const USER_PATH = 'users';
 
@@ -24,8 +24,14 @@ async function isFollowing(userId: string): Promise<{isFollowing: boolean}> {
   return response.data;
 }
 
+async function updateUser(params: UpdateUserParams): Promise<UserAPI> {
+  const response = await api.put<UserAPI>(`${USER_PATH}`, params);
+  return response.data;
+}
+
 export const userApi = {
   getById,
   getList,
   isFollowing,
+  updateUser,
 };

@@ -31,3 +31,7 @@ export interface UserAPI {
     followers_count: string; // '0';
   };
 }
+
+export type UpdateUserParams = Partial<
+  Pick<User, 'firstName' | 'lastName' | 'username'>
+>;
