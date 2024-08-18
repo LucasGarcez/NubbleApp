@@ -17,6 +17,7 @@ export function EditProfileScreen({
 }: AppScreenProps<'EditProfileScreen'>) {
   const {user} = useUserGetById(route.params.userId);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formRef = useRef<EditProfileFormRef>(null);
 
@@ -31,6 +32,7 @@ export function EditProfileScreen({
           ref={formRef}
           user={user}
           onChangeIsValid={setFormIsValid}
+          onChangeIsLoading={setIsLoading}
         />
       )}
 
@@ -63,6 +65,7 @@ export function EditProfileScreen({
         title="Salvar Alterações"
         onPress={submitForm}
         disabled={!formIsValid}
+        loading={isLoading}
       />
     </Screen>
   );
