@@ -18,3 +18,6 @@ export * from './Separator/Separator';
 export * from './RadioButton';
 export * from './ProgressIndicator/ProgressIndicator';
 export * from './InfinityScrollList/InfinityScrollList';
+export * from './ProfileTemplate/ProfileTemplate';
+export * from './BackButton/BackButton';
+export * from './InputButton/InputButton';

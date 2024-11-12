@@ -46,3 +46,8 @@ export interface SignUpData {
 export interface ForgotPasswordParam {
   email: string;
 }
+
+export interface EditPasswordParams {
+  currentPassword: string;
+  newPassword: string;
+}

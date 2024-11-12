@@ -1,4 +1,4 @@
-import {User, UserAPI} from './userTypes';
+import {User, UserAPI, UserDetails} from './userTypes';
 
 function toUser(userAPI: UserAPI): User {
   return {
@@ -10,9 +10,21 @@ function toUser(userAPI: UserAPI): User {
     profileUrl: userAPI.profile_url,
     isOnline: userAPI.is_online,
     fullName: userAPI.full_name,
+    meta: {
+      followersCount: userAPI.meta.followers_count,
+      followingCount: userAPI.meta.following_count,
+    },
+  };
+}
+
+function toUserDetails(userAPI: UserAPI, isFollowing: boolean): UserDetails {
+  return {
+    ...toUser(userAPI),
+    isFollowing,
   };
 }
 
 export const userAdapter = {
   toUser,
+  toUserDetails,
 };

@@ -17,7 +17,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   return (
     <Screen style={$screen}>
       <InfinityScrollList
-        queryKey={QueryKeys.PostList}
+        queryKey={[QueryKeys.PostList]}
         getList={postService.getList}
         renderItem={renderItem}
         flatListProps={{ListHeaderComponent: <HomeHeader />}}
