@@ -11,7 +11,7 @@ Bem-vindo ao repositório do Nubble App, o projeto construído nas aulas do curs
 
 Confira o Figma completo com todas as tela [aqui](<https://www.figma.com/design/qZVdIhrBpXhyZCPhy1WfAh/App---Nubble-(v.1.1)?node-id=11070-1977&node-type=frame&t=QLADZp0cl379wYx4-0>)!
 
-## ⛏️ Tech (Bibliotecas e e Tecnologias)
+## ⛏️ Tech (Bibliotecas e Tecnologias)
 
 - [React Native CLI](https://reactnative.dev/docs/getting-started-without-a-framework)
 - [TypeScript](https://www.typescriptlang.org/)
