@@ -1,4 +1,4 @@
-import {PageAPI, api} from '@api';
+import {PageAPI, PageParams, api} from '@api';
 
 import {FollowerUserAPI, FollowingUserAPI} from './followTypes';
 
@@ -9,7 +9,7 @@ async function isFollowing(userId: string): Promise<{isFollowing: boolean}> {
   return response.data;
 }
 
-async function followUser(userId: number): Promise<string> {
+async function followUser(userId: number): Promise<FollowingUserAPI> {
   const response = await api.post(
     'user/follow',
     {},
@@ -23,16 +23,26 @@ async function unfollowUser(userId: number): Promise<string> {
   return response.data;
 }
 
-async function geMyFollowingList(): Promise<PageAPI<FollowingUserAPI>> {
+async function geMyFollowingList(
+  params?: PageParams,
+): Promise<PageAPI<FollowingUserAPI>> {
   const response = await api.get<PageAPI<FollowingUserAPI>>(
     'user/follow/following',
+    {
+      params,
+    },
   );
   return response.data;
 }
 
-async function getMyFollowersList(): Promise<PageAPI<FollowerUserAPI>> {
+async function getMyFollowersList(
+  params?: PageParams,
+): Promise<PageAPI<FollowerUserAPI>> {
   const response = await api.get<PageAPI<FollowerUserAPI>>(
     'user/follow/followers',
+    {
+      params,
+    },
   );
   return response.data;
 }
