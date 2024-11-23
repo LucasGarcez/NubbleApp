@@ -1,26 +1,22 @@
 import React from 'react';
-import {ListRenderItemInfo} from 'react-native';
 
-import {User, followService} from '@domain';
+import {followService} from '@domain';
 import {QueryKeys} from '@infra';
 
-import {InfinityScrollList, Screen, Text} from '@components';
+import {UserListTemplate} from '@components';
 
 export function MyFollowersScreen() {
-  function renderItem({item}: ListRenderItemInfo<User>) {
-    return <Text>{item.username}</Text>;
+  function removeFollower() {
+    //TODO: remove follower
   }
   return (
-    <Screen flex={1} title="Seguidores" canGoBack>
-      <InfinityScrollList
-        queryKey={[QueryKeys.MyFollowersList]}
-        getList={followService.getMyFollowersList}
-        renderItem={renderItem}
-        emptyListProps={{
-          emptyMessage: 'você ainda não tem seguidores',
-          errorMessage: 'erro ao carregar lista',
-        }}
-      />
-    </Screen>
+    <UserListTemplate
+      screenTitle="Seguidores"
+      getUserList={followService.getMyFollowersList}
+      countText="seguidores"
+      emptyMessage="Você ainda não tem seguidores"
+      queryKey={QueryKeys.MyFollowersList}
+      buttonProps={{title: 'remover', onPress: removeFollower}}
+    />
   );
 }
