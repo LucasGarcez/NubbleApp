@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ListRenderItemInfo} from 'react-native';
 
 import {User, followService} from '@domain';
 import {QueryKeys} from '@infra';
 
-import {Button, InfinityScrollList, ProfileUser, Screen} from '@components';
+import {
+  Button,
+  InfinityScrollList,
+  ProfileUser,
+  Screen,
+  Text,
+} from '@components';
 import {AppScreenProps} from '@routes';
 
 export function MyFollowingScreen({}: //route,
 AppScreenProps<'MyFollowingScreen'>) {
-  // TODO: add following count: // const {} = useUser
+  const [followingTotal, setFollowingTotal] = useState<null | number>(null);
 
   function unFollowUser() {
     // TODO:
+  }
+
+  async function getList(page: number) {
+    const response = await followService.geMyFollowingList(page);
+    setFollowingTotal(response.meta.total);
+    return response;
   }
 
   function renderItem({item}: ListRenderItemInfo<User>) {
@@ -26,12 +38,27 @@ AppScreenProps<'MyFollowingScreen'>) {
       />
     );
   }
+
+  function renderListHeader() {
+    if (!followingTotal) {
+      return null;
+    }
+    return (
+      <Text semiBold preset="paragraphSmall" color="primary" mb="s24">
+        {followingTotal} seguidores
+      </Text>
+    );
+  }
+
   return (
     <Screen flex={1} title="Seguindo" canGoBack>
       <InfinityScrollList
         queryKey={[QueryKeys.MyFollowersList]}
-        getList={followService.geMyFollowingList}
+        getList={getList}
         renderItem={renderItem}
+        flatListProps={{
+          ListHeaderComponent: renderListHeader,
+        }}
         emptyListProps={{
           emptyMessage: 'você ainda não segue ninguém',
           errorMessage: 'erro ao carregar lista',
