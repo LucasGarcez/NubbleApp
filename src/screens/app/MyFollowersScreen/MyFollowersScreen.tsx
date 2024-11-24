@@ -16,7 +16,8 @@ export function MyFollowersScreen() {
       countText="seguidores"
       emptyMessage="Você ainda não tem seguidores"
       queryKey={QueryKeys.MyFollowersList}
-      buttonProps={{title: 'remover', onPress: removeFollower}}
+      onPressButton={removeFollower}
+      buttonProps={{title: 'remover'}}
     />
   );
 }

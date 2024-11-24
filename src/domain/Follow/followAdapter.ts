@@ -1,10 +1,13 @@
 import {User, userAdapter} from '../User';
 
-import {FollowingUserAPI} from './followTypes';
+import {FollowingUser, FollowingUserAPI} from './followTypes';
 import {FollowerUserAPI} from './followTypes';
 
-function fromFollowingToUser(followingUser: FollowingUserAPI): User {
-  return userAdapter.toUser(followingUser.followed);
+function fromFollowingToUser(followingUser: FollowingUserAPI): FollowingUser {
+  return {
+    followId: followingUser.id,
+    ...userAdapter.toUser(followingUser.followed),
+  };
 }
 
 function fromFollowerToUser(followerUser: FollowerUserAPI): User {

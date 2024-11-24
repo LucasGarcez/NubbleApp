@@ -14,23 +14,25 @@ import {
   Text,
 } from '@components';
 
-type Props = {
-  getUserList: (page: number) => Promise<Page<User>>;
+type Props<IUser extends User> = {
+  getUserList: (page: number) => Promise<Page<IUser>>;
   queryKey: QueryKeys;
-  buttonProps: Pick<ButtonProps, 'title' | 'onPress'>;
+  buttonProps: Pick<ButtonProps, 'title'>;
+  onPressButton: (user: IUser) => void;
   emptyMessage: string;
   screenTitle: string;
   countText: string;
 };
 
-export function UserListTemplate({
+export function UserListTemplate<IUser extends User>({
   queryKey,
   getUserList,
   buttonProps,
   emptyMessage,
   screenTitle,
+  onPressButton,
   countText,
-}: Props) {
+}: Props<IUser>) {
   const [usersCount, setUsersCount] = useState<null | number>(null);
 
   async function getList(page: number) {
@@ -39,12 +41,18 @@ export function UserListTemplate({
     return response;
   }
 
-  function renderItem({item}: ListRenderItemInfo<User>) {
+  function renderItem({item}: ListRenderItemInfo<IUser>) {
     return (
       <ProfileUser
         user={item}
         alignItems="center"
-        RightComponent={<Button preset="gray" {...buttonProps} />}
+        RightComponent={
+          <Button
+            preset="gray"
+            title={buttonProps.title}
+            onPress={() => onPressButton(item)}
+          />
+        }
       />
     );
   }

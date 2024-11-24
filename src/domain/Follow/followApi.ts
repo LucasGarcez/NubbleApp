@@ -18,8 +18,8 @@ async function followUser(userId: number): Promise<FollowingUserAPI> {
   return response.data;
 }
 
-async function unfollowUser(userId: number): Promise<string> {
-  const response = await api.delete(`user/follow${userId}`);
+async function unfollowUser(followId: number): Promise<string> {
+  const response = await api.delete(`user/follow/${followId}`);
   return response.data;
 }
 

@@ -1,16 +1,20 @@
 import React from 'react';
 
-import {followService} from '@domain';
+import {followService, useUnfollowUser} from '@domain';
 import {QueryKeys} from '@infra';
+import {useToastService} from '@services';
 
 import {UserListTemplate} from '@components';
 import {AppScreenProps} from '@routes';
 
-export function MyFollowingScreen({}: //route,
-AppScreenProps<'MyFollowingScreen'>) {
-  function unFollowUser() {
-    // TODO:
-  }
+export function MyFollowingScreen({}: AppScreenProps<'MyFollowingScreen'>) {
+  const {showToast} = useToastService();
+
+  const {unFollowUser} = useUnfollowUser({
+    onSuccess: () => {
+      showToast({message: 'Deixou de seguir', type: 'success'});
+    },
+  });
 
   return (
     <UserListTemplate
@@ -19,7 +23,8 @@ AppScreenProps<'MyFollowingScreen'>) {
       emptyMessage="Você ainda não está seguindo ninguém"
       getUserList={followService.geMyFollowingList}
       queryKey={QueryKeys.MyFollowingList}
-      buttonProps={{title: 'seguindo', onPress: unFollowUser}}
+      onPressButton={user => unFollowUser(user.followId)}
+      buttonProps={{title: 'seguindo'}}
     />
   );
 }

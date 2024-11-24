@@ -5,8 +5,9 @@ import {User} from '../User';
 
 import {followAdapter} from './followAdapter';
 import {followApi} from './followApi';
+import {FollowingUser} from './followTypes';
 
-async function geMyFollowingList(page: number): Promise<Page<User>> {
+async function geMyFollowingList(page: number): Promise<Page<FollowingUser>> {
   const followingUserPageAPI = await followApi.geMyFollowingList({
     page,
     per_page: 10,
@@ -39,8 +40,8 @@ async function followUser(userId: number): Promise<User> {
   return followAdapter.fromFollowingToUser(data);
 }
 
-async function unfollowUser(userId: number): Promise<void> {
-  await followApi.unfollowUser(userId);
+async function unfollowUser(followId: number): Promise<void> {
+  await followApi.unfollowUser(followId);
 }
 
 export const followService = {
