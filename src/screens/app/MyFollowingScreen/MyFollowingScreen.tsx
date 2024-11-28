@@ -10,9 +10,17 @@ import {AppScreenProps} from '@routes';
 export function MyFollowingScreen({}: AppScreenProps<'MyFollowingScreen'>) {
   const {showToast} = useToastService();
 
-  const {unFollowUser} = useUnfollowUser({
+  const {unFollowUser, undo} = useUnfollowUser({
     onSuccess: () => {
-      showToast({message: 'Deixou de seguir', type: 'success'});
+      showToast({
+        message: 'Deixou de seguir',
+        type: 'success',
+        position: 'bottom',
+        action: {
+          title: 'Desfazer',
+          onPress: undo,
+        },
+      });
     },
   });
 
@@ -23,7 +31,7 @@ export function MyFollowingScreen({}: AppScreenProps<'MyFollowingScreen'>) {
       emptyMessage="Você ainda não está seguindo ninguém"
       getUserList={followService.geMyFollowingList}
       queryKey={QueryKeys.MyFollowingList}
-      onPressButton={user => unFollowUser(user.followId)}
+      onPressButton={user => unFollowUser(user)}
       buttonProps={{title: 'seguindo'}}
     />
   );
