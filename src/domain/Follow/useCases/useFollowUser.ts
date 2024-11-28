@@ -3,13 +3,15 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {followService} from '../followService';
 
-export function useUnfollowUser(options?: MutationOptions<void>) {
+export function useFollowUser(options?: MutationOptions<void>) {
   const queryClient = useQueryClient();
 
   const {mutate, isLoading} = useMutation({
-    mutationFn: followService.unfollowUser,
+    mutationFn: followService.followUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: [QueryKeys.MyFollowingList]});
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.MyFollowingList],
+      });
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.UserGetById],
       });
@@ -19,17 +21,17 @@ export function useUnfollowUser(options?: MutationOptions<void>) {
     },
     onError: () => {
       if (options?.onError) {
-        options.onError(options?.errorMessage || 'erro ao deixar de seguir');
+        options.onError(options?.errorMessage || 'erro ao seguir usuário');
       }
     },
   });
 
-  function unFollowUser(userId: number) {
+  function followUser(userId: number) {
     mutate(userId);
   }
 
   return {
-    unFollowUser,
+    followUser,
     isLoading,
   };
 }
