@@ -5,7 +5,6 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {useFollowUser} from '..';
 import {followService} from '../followService';
-import {FollowingUser} from '../followTypes';
 
 export function useUnfollowUser(options?: MutationOptions<void>) {
   const queryClient = useQueryClient();
@@ -31,9 +30,10 @@ export function useUnfollowUser(options?: MutationOptions<void>) {
     },
   });
 
-  function unFollowUser(followingUser: FollowingUser) {
-    setSavedUserId(followingUser.id);
-    mutate(followingUser.followId);
+  function unFollowUser(userId: number, followId: number) {
+    console.log({userId, followId});
+    setSavedUserId(userId);
+    mutate(followId);
   }
 
   function undo() {

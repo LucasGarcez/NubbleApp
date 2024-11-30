@@ -6,13 +6,12 @@ export interface FollowingUserAPI {
   followed: UserAPI;
 }
 
-export interface FollowingUser extends User {
-  followId: number;
-  //  followedUserId: number;
-}
-
 export interface FollowerUserAPI {
   id: number;
   follower_user_id: number;
   follower: UserAPI;
+}
+
+export interface FollowUser extends User {
+  followId: number;
 }

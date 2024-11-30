@@ -31,7 +31,7 @@ export function MyFollowingScreen({}: AppScreenProps<'MyFollowingScreen'>) {
       emptyMessage="Você ainda não está seguindo ninguém"
       getUserList={followService.geMyFollowingList}
       queryKey={QueryKeys.MyFollowingList}
-      onPressButton={user => unFollowUser(user)}
+      onPressButton={user => unFollowUser(user.id, user.followId)}
       buttonProps={{title: 'seguindo'}}
     />
   );
