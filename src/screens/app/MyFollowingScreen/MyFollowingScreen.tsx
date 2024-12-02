@@ -14,6 +14,7 @@ export function MyFollowingScreen({}: AppScreenProps<'MyFollowingScreen'>) {
       showToast({
         message: 'Deixou de seguir',
         type: 'success',
+        position: 'bottom',
         action: {
           title: 'Desfazer',
           onPress: undoRemoveFollow,
