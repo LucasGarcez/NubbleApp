@@ -13,8 +13,9 @@ const MAX_WIDTH = Dimensions.get('screen').width * 0.9;
 
 interface Props {
   toast: Toast;
+  hideToast: () => void;
 }
-export function ToasContent({toast}: Props) {
+export function ToasContent({toast, hideToast}: Props) {
   const position: ToastPosition = toast?.position || 'top';
   const type: ToastType = toast?.type || 'success';
 
@@ -24,6 +25,19 @@ export function ToasContent({toast}: Props) {
       <Text style={{flexShrink: 1}} ml="s16" preset="paragraphMedium" bold>
         {toast?.message}
       </Text>
+      {toast?.action && (
+        <Text
+          ml="s8"
+          color="market"
+          preset="paragraphMedium"
+          bold
+          onPress={() => {
+            toast?.action?.onPress();
+            hideToast();
+          }}>
+          {toast.action.title}
+        </Text>
+      )}
     </Box>
   );
 }

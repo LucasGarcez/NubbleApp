@@ -50,7 +50,7 @@ export function Toast() {
     <Animated.View
       testID={'toast-message'}
       style={{position: 'absolute', alignSelf: 'center', opacity: fadeAnim}}>
-      <ToasContent toast={toast} />
+      <ToasContent toast={toast} hideToast={hideToast} />
     </Animated.View>
   );
 }
