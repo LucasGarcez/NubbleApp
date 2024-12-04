@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 
-import {Toast, ToastType, ToastPosition} from '@services';
+import {Toast, ToastType} from '@services';
 
 import {$shadowProps} from '@theme';
 
@@ -13,17 +13,30 @@ const MAX_WIDTH = Dimensions.get('screen').width * 0.9;
 
 interface Props {
   toast: Toast;
+  hideToast: () => void;
 }
-export function ToasContent({toast}: Props) {
-  const position: ToastPosition = toast?.position || 'top';
+export function ToasContent({toast, hideToast}: Props) {
   const type: ToastType = toast?.type || 'success';
 
   return (
-    <Box {...$boxStyle} style={[{[position]: 100}, $shadowProps]}>
+    <Box {...$boxStyle} style={$shadowProps}>
       <Icon {...mapTypeToIcon[type]} />
       <Text style={{flexShrink: 1}} ml="s16" preset="paragraphMedium" bold>
         {toast?.message}
       </Text>
+      {toast?.action && (
+        <Text
+          ml="s8"
+          color="market"
+          preset="paragraphMedium"
+          bold
+          onPress={() => {
+            toast?.action?.onPress();
+            hideToast();
+          }}>
+          {toast.action.title}
+        </Text>
+      )}
     </Box>
   );
 }
