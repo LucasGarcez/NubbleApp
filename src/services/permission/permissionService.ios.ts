@@ -45,7 +45,7 @@ const mapAuthToStatus: Record<
 
 async function check(name: PermissionName): Promise<PermissionStatus> {
   if (name === 'notification') {
-    return requestNotification();
+    return checkNotification();
   }
   const status = await rnpCheck(mapName[name]);
   return mapStatus[status];
@@ -53,13 +53,17 @@ async function check(name: PermissionName): Promise<PermissionStatus> {
 
 async function request(name: PermissionName): Promise<PermissionStatus> {
   if (name === 'notification') {
-    return checkNotification();
+    return requestNotification();
   }
   const status = await rnpRequest(mapName[name]);
   return mapStatus[status];
 }
 
 async function requestNotification(): Promise<PermissionStatus> {
+  // const token = await messaging().getToken();
+  // const apnsToken = await messaging().getAPNSToken();
+  // console.log('token', token);
+  // console.log('apnsToken', apnsToken);
   const authStatus = await messaging().requestPermission();
   return mapAuthToStatus[authStatus];
 }
