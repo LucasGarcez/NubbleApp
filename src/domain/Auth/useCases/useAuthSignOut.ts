@@ -1,3 +1,4 @@
+import {userService} from '@domain';
 import {useAuthCredentials, useSearchHistoryService} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
@@ -10,6 +11,7 @@ export function useAuthSignOut() {
     mutationFn: authService.signOut,
     retry: false,
     onSettled: () => {
+      userService.deleteNotificationToken();
       removeCredentials();
       clearUserList();
     },
