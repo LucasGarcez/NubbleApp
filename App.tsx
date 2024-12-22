@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {settingsService, useAppColor} from '@services';
+import {permissionService, settingsService, useAppColor} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -20,6 +20,10 @@ const queryClient = new QueryClient();
 function App(): JSX.Element {
   useAppColorScheme();
   const appColor = useAppColor();
+
+  useEffect(() => {
+    permissionService.request('notification');
+  }, []);
 
   useEffect(() => {
     settingsService.handleStatusBar(appColor);

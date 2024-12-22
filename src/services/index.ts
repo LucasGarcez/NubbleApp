@@ -5,3 +5,4 @@ export * from './searchHistory';
 export * from './permission';
 export * from './multimedia';
 export * from './settings';
+export * from './notification';

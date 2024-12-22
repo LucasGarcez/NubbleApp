@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
+import {useSaveNotificationToken} from '@domain';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useNotificationAction} from '@services';
 
 import {
   SettingsScreen,
@@ -50,6 +52,14 @@ interface Props {
   initialRouteName?: keyof AppStackParamList;
 }
 export function AppStack({initialRouteName = 'AppTabNavigator'}: Props) {
+  const {saveNotificationToken} = useSaveNotificationToken();
+  useNotificationAction();
+
+  useEffect(() => {
+    saveNotificationToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Stack.Navigator
       screenOptions={{
