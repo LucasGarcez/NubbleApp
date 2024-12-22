@@ -9,7 +9,6 @@ export function useNotificationAction() {
   const navigation = useNavigation();
 
   function handleNavigation(navigateAction: NotificationToNavigate | null) {
-    console.log('handleNavigation', navigateAction);
     if (navigateAction) {
       navigation.navigate<any>(navigateAction.screen, navigateAction.params);
     }
