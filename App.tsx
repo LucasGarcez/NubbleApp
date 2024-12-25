@@ -20,6 +20,11 @@ initializeStorage(MMKVStorage);
 const queryClient = new QueryClient();
 
 async function requestPermission() {
+  // const token = await messaging().getToken();
+  // const apnsToken = await messaging().getAPNSToken(); // APNS token for iOS
+
+  // console.log('Token:', token);
+  // console.log('APNs:', apnsToken);
   if (Platform.OS === 'ios') {
     const authStatus = await messaging().requestPermission();
     const enabled =
