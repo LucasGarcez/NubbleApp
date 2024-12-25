@@ -62,6 +62,7 @@ yarn-error.log
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+GoogleService-Info.plist
 
 *dSYM.zip
 
