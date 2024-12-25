@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
+import {PermissionsAndroid, Platform} from 'react-native';
 
+import messaging from '@react-native-firebase/messaging';
 import {settingsService, useAppColor} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -17,9 +19,30 @@ initializeStorage(MMKVStorage);
 
 const queryClient = new QueryClient();
 
+async function requestPermission() {
+  if (Platform.OS === 'ios') {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  } else {
+    PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    );
+  }
+}
+
 function App(): JSX.Element {
   useAppColorScheme();
   const appColor = useAppColor();
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   useEffect(() => {
     settingsService.handleStatusBar(appColor);
