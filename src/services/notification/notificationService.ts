@@ -10,9 +10,24 @@ async function getToken(): Promise<string> {
 async function getInitialNotification(): Promise<NotificationToNavigate | null> {
   const remoreMessage = await messaging().getInitialNotification();
   if (remoreMessage?.data) {
+    // console.log('getInitialNotification:', remoreMessage.data);
     return getActionFromNotificationData(remoreMessage.data);
   }
   return null;
+}
+
+function onNotificationOpenedApp(
+  listener: (action: NotificationToNavigate | null) => void,
+): () => void {
+  const unsubscribe = messaging().onNotificationOpenedApp(remoreMessage => {
+    if (remoreMessage.data) {
+      // console.log('onNotificationOpenedApp:', remoreMessage.data);
+      const action = getActionFromNotificationData(remoreMessage.data);
+      listener(action);
+    }
+  });
+
+  return unsubscribe;
 }
 
 function getActionFromNotificationData(data: {
@@ -29,19 +44,6 @@ function getActionFromNotificationData(data: {
   }
 
   return null;
-}
-
-function onNotificationOpenedApp(
-  listener: (action: NotificationToNavigate | null) => void,
-): () => void {
-  const unsubscribe = messaging().onNotificationOpenedApp(remoreMessage => {
-    if (remoreMessage.data) {
-      const action = getActionFromNotificationData(remoreMessage.data);
-      listener(action);
-    }
-  });
-
-  return unsubscribe;
 }
 
 export const notificationService = {
