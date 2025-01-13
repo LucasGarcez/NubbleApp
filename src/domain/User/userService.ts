@@ -46,9 +46,18 @@ function getUpdatedUser(
 
   return user;
 }
+function addNotificationToken(token: string): Promise<string> {
+  return userApi.addNotificationToken(token);
+}
+
+function deleteNotificationToken(): Promise<string> {
+  return userApi.deleteNotificationToken();
+}
 
 export const userService = {
   getById,
   searchUser,
   updateUser,
+  addNotificationToken,
+  deleteNotificationToken,
 };
