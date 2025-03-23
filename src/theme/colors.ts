@@ -17,6 +17,7 @@ export const palette = {
   gray5: '#F5F5F5',
   grayWhite: '#FFFFFF',
   white70: 'rgba(255,255,255,0.7)',
+  transparent: 'transparent',
 };
 
 const lightTheme = {
